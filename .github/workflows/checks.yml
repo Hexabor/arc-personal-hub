@@ -15,4 +15,6 @@ jobs:
       - run: node --check pages/google-backend.js
       - run: node tests/logic.cjs
       - run: node tests/pages.cjs
+      - run: node tests/task-edits.cjs
+      - run: node tests/task-ui.cjs
       - run: python3 build.py --pages --allow-unconfigured

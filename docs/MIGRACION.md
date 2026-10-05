@@ -6,7 +6,9 @@ Arc acepta la opción de conexión temporal: pulsar **Conectar con Google** al a
 
 Se autoriza avanzar con código público y datos privados accesibles únicamente por la cuenta del propietario. El repositorio contiene interfaz, lógica y pruebas sintéticas, sin registros personales, copias de Sheets, conversaciones, IDs privados del núcleo ni secretos. No se crean Firebase, Firestore, Cloud Run ni un servicio de renovación de sesiones. El borrador local de esa alternativa no está publicado ni forma parte del despliegue.
 
-Estado: repositorio público y fuente de Pages guardada como GitHub Actions; sin despliegue publicado. Transporte temporal preparado y pruebas locales superadas. La configuración nueva de Google y su conexión real siguen pendientes. La consola de Google Cloud devolvió **Site Unavailable / Unable to access this site** desde el navegador remoto, también tras una recarga; no se pudo crear el cliente OAuth. El proyecto Apps Script actual conserva un Cloud project predeterminado, insuficiente para scripts.run. No se interpreta esta limitación como caída general de Google ni bloqueo anti-bot.
+Estado: repositorio público y fuente de Pages guardada como GitHub Actions; sin despliegue publicado. Transporte temporal preparado y pruebas locales superadas. El propietario completó manualmente la configuración de Google Cloud desde su navegador: proyecto estándar dedicado creado, Apps Script API y Sheets API habilitadas, Google Auth Platform en pruebas con solo el propietario como usuario de prueba, y permisos userinfo.email y spreadsheets guardados. Las capturas aportadas verifican esos pasos. El ID de cliente OAuth facilitado por el propietario está guardado y verificado en la variable ARC_GOOGLE_CLIENT_ID de GitHub Actions.
+
+La consola de Google Cloud sigue sin estar accesible desde el navegador remoto. El Apps Script conserva todavía su Cloud project predeterminado: la asociación al proyecto estándar, la implementación API, la conexión real y la publicación de Pages siguen pendientes. No interpretar la configuración del cliente OAuth como conexión operativa.
 
 ## Acceso y seguridad
 
@@ -16,15 +18,15 @@ Estado: repositorio público y fuente de Pages guardada como GitHub Actions; sin
 - El token caducado exige reconectar mediante una acción del usuario. Se mantiene margen de seis minutos antes de ejecutar Apps Script. Desconectar oculta los datos y elimina el token local; no equivale a revocar los permisos de Google ni invalida instantáneamente un token copiado anteriormente. Se pueden revocar permisos desde la cuenta de Google.
 - El borrador conserva texto e ID en el dispositivo. No reintentar una escritura incierta con otro ID. La captura sigue pasando por ScriptLock y el circuito canónico; no añadir otro escritor directo de Sheets.
 
-## Activación pendiente
+## Activación y avance
 
-1. Crear un proyecto **estándar** de Google Cloud dedicado al HUB, sin Firebase, servidores ni vinculación de facturación para esta ruta. Si Google solicita condiciones o facturación, detenerse y revisar antes de aceptar. Conservar versiones y recuperación de la web privada actual.
-2. Configurar Google Auth Platform: app personal, audiencia externa en pruebas y solo el propietario como usuario de prueba. No añadir otros usuarios.
-3. Habilitar Apps Script API y Sheets API. Crear un cliente OAuth de aplicación web con el origen HTTPS real que GitHub asigne a Pages. No confundir el origen con la URL completa del repositorio. No subir un client secret.
-4. Asociar el mismo proyecto estándar al Apps Script existente. Esta operación puede requerir volver a autorizar la web actual; revisar su recuperación antes de aplicarla.
+1. **Completado por el propietario:** crear un proyecto **estándar** de Google Cloud dedicado al HUB, sin Firebase, servidores ni vinculación de facturación para esta ruta. Si Google solicita condiciones o facturación, detenerse y revisar antes de aceptar. Conservar versiones y recuperación de la web privada actual.
+2. **Completado y verificado por capturas:** configurar Google Auth Platform: app personal, audiencia externa en pruebas y solo el propietario como usuario de prueba. No añadir otros usuarios.
+3. **Completado:** habilitar Apps Script API y Sheets API. Crear un cliente OAuth de aplicación web con el origen HTTPS real que GitHub asigne a Pages. No confundir el origen con la URL completa del repositorio. No subir un client secret.
+4. **Pendiente:** asociar el mismo proyecto estándar al Apps Script existente. Google avisa de que se revocan las autorizaciones anteriores y no se puede volver al proyecto predeterminado administrado por Apps Script. Volver a autorizar y comprobar la web actual después del cambio; conservar código, versiones y URL no permite restaurar ese proyecto predeterminado.
 5. Configurar HUB_CORE_ID en las propiedades privadas del script, conservar HUB_OWNER_EMAIL e instalar los archivos de google/ en el mismo proyecto. Comprobar primero la web actual. No crear otra hoja ni cambiar sus permisos.
 6. Publicar una implementación adicional **API executable**, acceso **Only myself**. Conservar la URL /exec de la web existente. El valor para scripts.run es el ID de esa implementación API.
-7. Guardar en GitHub las variables ARC_GOOGLE_CLIENT_ID y ARC_API_DEPLOYMENT_ID. Son identificadores públicos. No se requiere ni se guarda un secreto OAuth en Pages.
+7. **Parcial:** ARC_GOOGLE_CLIENT_ID ya está guardada y verificada; sigue pendiente ARC_API_DEPLOYMENT_ID. Son identificadores públicos. No se requiere ni se guarda un secreto OAuth en Pages.
 8. Pages ya está configurado con GitHub Actions; ejecutar el flujo manual cuando la conexión esté verificada. El build bloquea la publicación sin esos valores; --allow-unconfigured es solo una comprobación local.
 9. Ejecutar las pruebas reales siguientes antes de considerar Pages como acceso operativo. La publicación de archivos por sí sola no acredita la conexión.
 

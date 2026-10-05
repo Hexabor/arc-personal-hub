@@ -43,14 +43,14 @@
         body: JSON.stringify({function:method, parameters, devMode:false})
       });
     } catch (_) {
-      throw new Error('No se ha podido confirmar la operación. Conserva el borrador y reintenta con el mismo texto.');
+      throw new Error('No se ha podido confirmar la operación. Conserva los cambios y reintenta con el mismo contenido.');
     }
-    if (requestSession !== session) throw new Error('La sesión ha cambiado. Comprueba Incoming antes de repetir la captura.');
+    if (requestSession !== session) throw new Error('La sesión ha cambiado. Comprueba el registro antes de repetir el cambio.');
     if (response.status === 401) { disconnect(); throw new Error('La sesión ha caducado. Vuelve a conectar con Google.'); }
     let result;
     try { result = await response.json(); }
     catch (_) { throw new Error('Google no ha devuelto una respuesta verificable. Conserva el borrador.'); }
-    if (requestSession !== session) throw new Error('La sesión ha cambiado. Comprueba Incoming antes de repetir la captura.');
+    if (requestSession !== session) throw new Error('La sesión ha cambiado. Comprueba el registro antes de repetir el cambio.');
     if (!response.ok || result.error) {
       if (result.error?.details?.[0]?.errorMessage) throw new Error(result.error.details[0].errorMessage);
       throw new Error(response.status === 403 ? 'Google no permite esta operación. Revisa la cuenta y su autorización.' : 'Google no ha confirmado la operación. Conserva el borrador.');

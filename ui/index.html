@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#131d2b"><meta name="description" content="Tu HUB personal: captura, pendientes, proyectos y contexto.">
+<title>ARC · Hub personal</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<aside class="sidebar"><a class="brand" href="#inicio" aria-label="ARC, inicio"><span class="brand-mark">a<span>r</span>c.</span><span class="brand-caption">ESPACIO PERSONAL</span></a><nav aria-label="Navegación principal" id="side-nav"></nav><div class="side-bottom"><button class="nav-button" data-view="conexion"><span data-icon="link"></span><span class="nav-label">Conexión</span></button><a class="nav-button" id="source-link" target="_blank" rel="noopener noreferrer"><span data-icon="grid"></span><span class="nav-label">Abrir mis datos</span></a><div class="identity"><span class="avatar">A</span><div><b>Arc</b><small>Tu espacio privado</small></div></div></div></aside>
+<div class="workspace"><header class="topbar"><span class="mobile-brand">arc.</span><div class="search-wrap"><span data-icon="search"></span><input id="global-search" type="search" aria-label="Buscar en el sistema personal" placeholder="Buscar una persona, un plan, un pendiente…" autocomplete="off"><kbd>/</kbd></div><button class="icon-button refresh-button" id="refresh" aria-label="Actualizar datos"><span data-icon="refresh"></span></button><button class="top-capture button dark" data-capture><span data-icon="plus"></span>Capturar</button></header>
+<div class="connection-strip" id="connection-strip" role="status"></div><main id="main" tabindex="-1"></main><footer class="page-footer"><span>Un espacio que crece contigo.</span><button class="text-button" data-view="conexion" id="connection-footer">Ver conexión</button></footer></div>
+<nav class="bottom-nav" id="bottom-nav" aria-label="Navegación móvil"></nav>
+<dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow" id="detail-type"></span><button class="icon-button" id="close-detail" aria-label="Cerrar ficha"><span data-icon="close"></span></button></div><div id="detail-content"></div></dialog>
+<div class="toast" id="toast" role="status" hidden></div><script src="app.js"></script>
+</body></html>

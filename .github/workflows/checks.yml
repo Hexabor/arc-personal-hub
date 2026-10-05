@@ -1,0 +1,18 @@
+name: Check HUB
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 build.py
+      - run: node --check dist/app.js
+      - run: node --check pages/google-backend.js
+      - run: node tests/logic.cjs
+      - run: node tests/pages.cjs
+      - run: python3 build.py --pages --allow-unconfigured

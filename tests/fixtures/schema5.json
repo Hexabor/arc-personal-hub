@@ -1,0 +1,130 @@
+[
+  [
+    "schema_version",
+    "5"
+  ],
+  [
+    "source_tasks_active",
+    "Tareas activas"
+  ],
+  [
+    "source_projects",
+    "Proyectos"
+  ],
+  [
+    "source_people",
+    "Personas"
+  ],
+  [
+    "source_dates",
+    "Registro 2026"
+  ],
+  [
+    "source_ideas",
+    "Ideas"
+  ],
+  [
+    "source_register",
+    "Registro 2026"
+  ],
+  [
+    "module_registry",
+    "Módulos"
+  ],
+  [
+    "module_registry_rule",
+    "Ver norma: Registro canónico de módulos"
+  ],
+  [
+    "module_core_id",
+    "MOD-CORE"
+  ],
+  [
+    "source_recommendations",
+    "Recomendaciones"
+  ],
+  [
+    "source_summary",
+    "Resumen"
+  ],
+  [
+    "capture_mode",
+    "incoming_then_consolidation"
+  ],
+  [
+    "schema_columns:Tareas activas",
+    "[\"ID\",\"Tarea\",\"Área\",\"Tipo\",\"Responsable\",\"Delegable\",\"Seguimiento por\",\"Próximo seguimiento\",\"Personas relacionadas\",\"Contexto ejecución\",\"Concentración\",\"Tiempo estimado (min)\",\"Prioridad\",\"Estado\",\"Fecha creación\",\"Fecha objetivo\",\"Origen\",\"Contexto / notas\",\"Última actualización\",\"Fecha completada\",\"Proyecto ID\",\"Proyecto\"]"
+  ],
+  [
+    "schema_columns:Tareas archivadas",
+    "[\"ID\",\"Tarea\",\"Área\",\"Tipo\",\"Responsable\",\"Delegable\",\"Seguimiento por\",\"Próximo seguimiento\",\"Personas relacionadas\",\"Contexto ejecución\",\"Concentración\",\"Tiempo estimado (min)\",\"Prioridad\",\"Estado\",\"Fecha creación\",\"Fecha objetivo\",\"Origen\",\"Contexto / notas\",\"Última actualización\",\"Fecha completada\",\"Proyecto ID\",\"Proyecto\",\"Fecha cierre\",\"Cierre / resultado\"]"
+  ],
+  [
+    "schema_columns:Proyectos",
+    "[\"ID\",\"Nombre\",\"Área\",\"Estado\",\"Objetivo\",\"Fecha inicio\",\"Fecha objetivo\",\"Próxima revisión\",\"Personas relacionadas\",\"Notas\",\"N.º tareas activas\",\"Tareas vinculadas\"]"
+  ],
+  [
+    "schema_columns:Personas",
+    "[\"ID\",\"Nombre\",\"Grupo / ámbito\",\"Relación\",\"Activo\",\"Notas / contexto\",\"Temas abiertos\",\"Última actualización\"]"
+  ],
+  [
+    "schema_columns:Regalos",
+    "[\"ID\",\"Persona\",\"Idea\",\"Origen / por qué encaja\",\"Estado\",\"Fecha objetivo\",\"Presupuesto aproximado\",\"Notas\"]"
+  ],
+  [
+    "schema_columns:Ideas",
+    "[\"ID\",\"Idea\",\"Área\",\"Tipo\",\"Personas relacionadas\",\"Fecha captura\",\"Estado\",\"Notas\"]"
+  ],
+  [
+    "schema_columns:Registro 2026",
+    "[\"ID\",\"Fecha del hecho\",\"Título\",\"Área\",\"Tipo\",\"Hito\",\"Personas relacionadas\",\"Lugar\",\"Resumen / memoria\",\"Resultado / impacto\",\"Origen\",\"Tareas relacionadas\",\"Proyectos relacionados\",\"Última actualización\",\"Efeméride anual\",\"Fecha de incorporación\"]"
+  ],
+  [
+    "schema_columns:Áreas",
+    "[\"ID\",\"Área\",\"Activo\",\"Notas\"]"
+  ],
+  [
+    "schema_columns:Catálogos",
+    "[\"Catálogo\",\"Valor\",\"Activo\",\"Notas\"]"
+  ],
+  [
+    "schema_columns:Resumen",
+    "[\"Métrica\",\"Valor\",\"Descripción\"]"
+  ],
+  [
+    "schema_columns:Sistema",
+    "[\"Clave\",\"Valor\",\"Notas\",\"Fecha\",\"Versión\",\"Cambio\"]"
+  ],
+  [
+    "schema_columns:Módulos",
+    "[\"Módulo ID\",\"Dominio\",\"Backend canónico\",\"Tipo\",\"Drive file ID\",\"URL\",\"Qué guarda\",\"Estado\",\"Versión esquema\",\"Regla de enrutado\"]"
+  ],
+  [
+    "schema_columns:Recomendaciones",
+    "[\"ID\",\"Fecha\",\"Tipo\",\"Título\",\"Autor / creador\",\"Recomendado por\",\"Motivo / contexto\",\"Estado\",\"Notas\"]"
+  ],
+  [
+    "source_incoming",
+    "Incoming"
+  ],
+  [
+    "schema_columns:Incoming",
+    "[\"ID\",\"Fecha captura\",\"Origen\",\"Texto original\",\"Referencias\",\"Estado\",\"Destinos / recibos\",\"Fecha procesado\",\"Última actualización\",\"Notas\"]"
+  ],
+  [
+    "incoming_status",
+    "activo"
+  ],
+  [
+    "incoming_table",
+    "IncomingPersonal"
+  ],
+  [
+    "source_personal_criteria",
+    "Criterio personal"
+  ],
+  [
+    "schema_columns:Criterio personal",
+    "[\"ID\",\"Sujeto / ámbito\",\"Tipo\",\"Contexto / criterio\",\"Naturaleza\",\"Estado\",\"Fecha del dato\",\"Verificado el\",\"Válido hasta\",\"Revisar cuando\",\"Fuente / ancla\",\"Aplicación\",\"Sustituye a\",\"Notas\"]"
+  ]
+]

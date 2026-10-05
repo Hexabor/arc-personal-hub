@@ -5,7 +5,7 @@
  * real system review; this app never claims an automatic AI review.
  */
 const HUB_CORE_ID = PropertiesService.getScriptProperties().getProperty('HUB_CORE_ID');
-const HUB_RELEASE = '0.2.0';
+const HUB_RELEASE = '0.2.1';
 
 function setupHub() {
   const who = Session.getEffectiveUser().getEmail();
@@ -86,6 +86,8 @@ function getHubData() {
     result.tabs[role]=book.getSheetByName(name).getSheetId();
   });
   result.incoming=result.incoming.filter(r=>['Pendiente','En proceso','Revisar'].includes(r.Estado));
+  result.incomingOrdering=system.incoming_order_status==='activo';
+  if(result.incomingOrdering)result.incoming.forEach(r=>{r._version=taskVersion_(r);r._reviewFingerprint=taskFingerprint_(r);});
   result.taskEditing=String(system.schema_version)==='6' && system.task_edit_status==='activo';
   if(result.taskEditing){
     result.archivedTasks=readRows_(book,String(system.source_tasks_archived),system);
@@ -308,6 +310,35 @@ function reorderTasks(payload){
     if(liveRecords.length!==records.length||!liveRecords.every(r=>payload.versions[r.task.ID]===taskVersion_(r.task)))throw new Error('La lista cambió mientras se preparaba el orden. Actualiza antes de reordenar.');
     Sheets.Spreadsheets.batchUpdate({requests},HUB_CORE_ID);SpreadsheetApp.flush();
     const finalCtx=taskContext_();if(!after.every(t=>taskVersion_(taskFind_(finalCtx,t.ID).task)===taskVersion_(t))||!taskPrevious_(finalCtx,payload,signature))throw new Error('No se ha verificado el orden. Reintenta la misma operación.');
+    return {verified:true};
+  }finally{lock.releaseLock();}
+}
+
+function incomingOrderContext_(){
+  const book=SpreadsheetApp.openById(HUB_CORE_ID),system=readSystem_(book);checkCore_(book,system);
+  if(system.incoming_order_status!=='activo')throw new Error('El orden manual de Incoming aún no está activo.');
+  const sheet=book.getSheetByName(String(system.source_incoming)),audit=book.getSheetByName(String(system.source_task_changes));
+  readRows_(book,audit.getName(),system);
+  const all=readRows_(book,sheet.getName(),system).filter(r=>['Pendiente','En proceso','Revisar'].includes(r.Estado)).map(task=>({task,sheet}));
+  if(new Set(all.map(r=>r.task.ID)).size!==all.length)throw new Error('Incoming contiene IDs repetidos. Revisa su fuente.');
+  return {book,system,sheet,audit,all};
+}
+function reorderIncoming(payload){
+  assertOwner_();const signature=taskRequest_(payload),lock=LockService.getScriptLock();
+  if(!lock.tryLock(10000))throw new Error('Hay otro cambio en curso. Vuelve a intentarlo.');
+  try{
+    const ctx=incomingOrderContext_();if(taskPrevious_(ctx,payload,signature))return {verified:true,replayed:true};
+    const matches=c=>Array.isArray(payload.ids)&&payload.ids.length===c.all.length&&new Set(payload.ids).size===c.all.length&&payload.ids.every(id=>c.all.some(r=>r.task.ID===id))&&payload.versions&&c.all.every(r=>payload.versions[r.task.ID]===taskVersion_(r.task));
+    if(!matches(ctx))throw new Error('La lista de Incoming cambió. Actualiza antes de reordenar.');
+    const before=[],after=[],requests=[],stamp=cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone());
+    payload.ids.forEach((id,i)=>{const record=ctx.all.find(r=>r.task.ID===id);if(record.task['Orden manual']===i+1)return;
+      const patch={'Orden manual':i+1,'Última edición por':'Arc','Última actualización':stamp};before.push(record.task);after.push(Object.assign({},record.task,patch));requests.push(...taskChanges_(ctx,record,patch));});
+    if(!requests.length)return {verified:true,unchanged:true};
+    requests.push(taskAudit_(ctx,payload,signature,'Reordenar Incoming',before,after));
+    if(!matches(incomingOrderContext_()))throw new Error('Incoming cambió mientras se preparaba el orden. Actualiza antes de reordenar.');
+    Sheets.Spreadsheets.batchUpdate({requests},HUB_CORE_ID);SpreadsheetApp.flush();
+    const finalCtx=incomingOrderContext_();
+    if(!after.every(t=>finalCtx.all.some(r=>r.task.ID===t.ID&&taskVersion_(r.task)===taskVersion_(t)))||!taskPrevious_(finalCtx,payload,signature))throw new Error('No se ha verificado el orden. Reintenta la misma operación.');
     return {verified:true};
   }finally{lock.releaseLock();}
 }

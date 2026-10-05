@@ -6,7 +6,7 @@ Interfaz adaptable a móvil y ordenador para capturar en Incoming y consultar el
 
 Repositorio privado creado. Conserva la interfaz y la lógica de captura del HUB reparado (esquema 5), y prepara el transporte autenticado para GitHub Pages. **La migración todavía no está activada ni verificada en Google.** La instalación actual sigue siendo el acceso operativo.
 
-GitHub muestra «Upgrade or make this repository public to enable Pages» para esta cuenta. Antes de publicar falta decidir si se hace público el código o se mantiene privado con un plan compatible. El repositorio contiene código y pruebas sintéticas; no contiene una exportación de los registros personales.
+GitHub muestra «Upgrade or make this repository public to enable Pages» para esta cuenta. Arc acepta publicar el código con una condición: acceso exclusivo con su cuenta de Google y sesión persistente por navegador, sin identificarse en cada apertura normal. **La sesión temporal preparada aún no cumple esa condición; el repositorio sigue privado.** Primero hay que implementar y verificar la persistencia y renovación segura. El repositorio contiene código y pruebas sintéticas; no contiene una exportación de los registros personales.
 
 La ruta de activación está en [docs/MIGRACION.md](docs/MIGRACION.md). Los IDs y enlaces privados de operación se conservan en el proyecto del sistema personal, no en este repositorio.
 
@@ -31,6 +31,6 @@ python3 build.py --pages --allow-unconfigured
 
 El último comando sirve para comprobar una compilación sin credenciales configuradas. Publicar requiere los valores reales y verificación viva; las pruebas locales no acreditan una conexión real.
 
-El token de Google permanece en memoria y la lectura no se guarda en disco. El borrador de captura se conserva solo en el dispositivo, como en el HUB anterior. Desconectar oculta los datos de la sesión; no revoca permisos de Google ni borra un borrador. El servidor sigue validando al propietario en cada operación.
+En el transporte temporal actual, el token de Google permanece en memoria y la lectura no se guarda en disco. Cerrar/recargar la página pierde el token; no hay sesión persistente implementada. El borrador de captura se conserva solo en el dispositivo, como en el HUB anterior. Desconectar oculta los datos de la sesión; no revoca permisos de Google ni borra un borrador. El servidor sigue validando al propietario en cada operación. Ver el requisito nuevo y las pruebas de aceptación en la guía antes de activar/publicar.
 
 No se implementan cierres de tareas, consolidación automática, notificaciones ni nuevas tablas.

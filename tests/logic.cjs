@@ -17,6 +17,9 @@ assert.ok(!hooks.matchesTask(task,{context:'Presencial',minutes:'5',energy:'Baja
 assert.ok(!hooks.matchesTask({...task,'Tiempo estimado (min)':null},{minutes:'5',unknown:false}));
 assert.ok(hooks.matchesTask({...task,'Tiempo estimado (min)':null},{minutes:'5',unknown:true}));
 assert.ok(!hooks.openTask({...task,'Fecha completada':46271}));assert.ok(!hooks.openTask({...task,Estado:'Cancelado'}));
+const unsorted=[{ID:'A','Fecha creación':null,'Orden manual':3},{ID:'B','Fecha creación':46299,'Orden manual':2},{ID:'C','Fecha creación':46300,'Orden manual':1}];
+assert.equal(hooks.sortedTasks(unsorted,'newest').map(t=>t.ID).join(','),'C,B,A');assert.equal(hooks.sortedTasks(unsorted,'oldest').map(t=>t.ID).join(','),'B,C,A');assert.equal(hooks.sortedTasks(unsorted,'manual').map(t=>t.ID).join(','),'C,B,A');assert.equal(unsorted[0].ID,'A');
+assert.ok(hooks.reviewBadge({'Última edición por':'Arc','Revisado por':'Sistema','Huella revisada':'old',_reviewFingerprint:'new'}).includes('pendiente'));assert.ok(hooks.reviewBadge({'Última edición por':'Arc','Revisado por':'Sistema','Huella revisada':'same',_reviewFingerprint:'same'}).includes('Revisado por Sistema'));
 for(const view of ['tareas','proyectos','personas','memoria','incoming','modulos','mas','buscar','conexion']){
  events.click({target:{closest:()=>({dataset:{view}})}});assert.ok(element('main').innerHTML.length>100,view);
 }
@@ -38,7 +41,7 @@ const call=(name,args)=>server[name](args);
 const schemaRow=values.Sistema.find(r=>r[0]==='schema_version');
 schemaRow[1]='4';assert.throws(()=>call('getHubData'),/esquema/);assert.equal(appends,0);
 schemaRow[1]='5';const current=call('getHubData');assert.ok(Array.isArray(current.tasks));assert.ok(Array.isArray(current.history));assert.ok(Array.isArray(current.incoming));
-schemaRow[1]='6';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-future-01'}),/esquema/);assert.equal(appends,0);schemaRow[1]='5';
+schemaRow[1]='7';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-future-01'}),/esquema/);assert.equal(appends,0);schemaRow[1]='5';
 const firstHeader=values.Incoming[0][0];values.Incoming[0][0]='Unexpected header';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-header-01'}),/columnas/);assert.equal(appends,0);values.Incoming[0][0]=firstHeader;
 active='other@example.invalid';assert.throws(()=>call('captureIncoming',{text:'x',requestId:'1234567890'}),/Acceso privado/);active=owner;
 assert.throws(()=>call('captureIncoming',{text:'   ',requestId:'1234567890'}),/caracteres/);

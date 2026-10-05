@@ -1,11 +1,11 @@
 /**
  * ARC personal hub — Google Apps Script, one owner, one deployment.
  * Keep this file in the script bound to PERSONAL - Datos operativos.
- * Only captureIncoming writes operational data. No AI classification, task
- * completion, consolidation or background triggers are installed by this app.
+ * Capture and explicit task edits write operational data. Reviews require a
+ * real system review; this app never claims an automatic AI review.
  */
 const HUB_CORE_ID = PropertiesService.getScriptProperties().getProperty('HUB_CORE_ID');
-const HUB_RELEASE = '0.1.1';
+const HUB_RELEASE = '0.2.0';
 
 function setupHub() {
   const who = Session.getEffectiveUser().getEmail();
@@ -44,7 +44,7 @@ function readSystem_(book) {
 }
 
 function checkCore_(book, system) {
-  if (String(system.schema_version) !== '5') throw new Error('El esquema del sistema ha cambiado. Este HUB requiere el esquema 5; revisa su compatibilidad antes de leer o escribir.');
+  if (!['5','6'].includes(String(system.schema_version))) throw new Error('El esquema del sistema ha cambiado. Este HUB admite los esquemas 5 y 6; revisa su compatibilidad antes de leer o escribir.');
   if (system.capture_mode !== 'incoming_then_consolidation' || system.incoming_status !== 'activo') throw new Error('La captura mediante Incoming no está activa en el contrato.');
   const modules = readRows_(book, String(system.module_registry || 'Módulos'), system, 'Módulos');
   const core = modules.find(r => r['Módulo ID'] === system.module_core_id);
@@ -86,6 +86,13 @@ function getHubData() {
     result.tabs[role]=book.getSheetByName(name).getSheetId();
   });
   result.incoming=result.incoming.filter(r=>['Pendiente','En proceso','Revisar'].includes(r.Estado));
+  result.taskEditing=String(system.schema_version)==='6' && system.task_edit_status==='activo';
+  if(result.taskEditing){
+    result.archivedTasks=readRows_(book,String(system.source_tasks_archived),system);
+    result.tabs.archivedTasks=book.getSheetByName(String(system.source_tasks_archived)).getSheetId();
+    result.taskOptions=taskOptions_(book,system);
+    [...result.tasks,...result.archivedTasks].forEach(t=>{t._version=taskVersion_(t);t._reviewFingerprint=taskFingerprint_(t);});
+  }
   return result;
 }
 
@@ -162,3 +169,145 @@ function verifyReceipt_(book,sheet,system,id,marker,text) {
 }
 
 function quoteSheet_(name) {return "'"+String(name).replace(/'/g,"''")+"'";}
+/* Explicit owner edits. Every change has an atomic, durable audit receipt.
+ * Sheet columns are resolved by name; IDs, formulas and review stamps are protected.
+ */
+const TASK_REVIEW_FIELDS = ['Revisado por','Fecha revisión','Huella revisada','Feedback revisión'];
+const TASK_EDIT_FIELDS = ['Tarea','Área','Tipo','Responsable','Delegable','Seguimiento por','Próximo seguimiento','Personas relacionadas','Contexto ejecución','Concentración','Tiempo estimado (min)','Prioridad','Estado','Fecha objetivo','Origen','Contexto / notas','Fecha completada','Proyecto ID','Cierre / resultado'];
+const TASK_DATE_FIELDS = ['Próximo seguimiento','Fecha objetivo','Fecha completada'];
+
+function taskHash_(value){return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,JSON.stringify(value),Utilities.Charset.UTF_8).map(b=>('0'+((b+256)%256).toString(16)).slice(-2)).join('');}
+function taskSnapshot_(t,review){return Object.keys(t).filter(k=>!k.startsWith('_')&&k!=='Fecha cierre'&&k!=='Cierre / resultado'&&(review||!TASK_REVIEW_FIELDS.includes(k))).sort().map(k=>[k,t[k]===undefined?null:t[k]]);}
+function taskVersion_(t){return taskHash_([taskSnapshot_(t,true),t['Fecha cierre']||null,t['Cierre / resultado']||null]);}
+function taskFingerprint_(t){return taskHash_(taskSnapshot_(t,false));}
+function taskOptions_(book,system){
+  const catalog=readRows_(book,String(system.source_catalogs||'Catálogos'),system);
+  const values=key=>catalog.filter(r=>r.Catálogo===key&&r.Activo!==false&&r.Activo!=='FALSE').map(r=>r.Valor);
+  return {Estado:values('Estado tarea'),Prioridad:values('Prioridad tarea'),'Contexto ejecución':values('Contexto ejecución'),Concentración:values('Concentración')};
+}
+function taskContext_(){
+  const book=SpreadsheetApp.openById(HUB_CORE_ID),system=readSystem_(book);checkCore_(book,system);
+  if(String(system.schema_version)!=='6'||system.task_edit_status!=='activo')throw new Error('La edición de tareas aún no está activa en el contrato.');
+  const active=book.getSheetByName(String(system.source_tasks_active)),archived=book.getSheetByName(String(system.source_tasks_archived)),audit=book.getSheetByName(String(system.source_task_changes));
+  const all=[...readRows_(book,active.getName(),system).map(t=>({task:t,sheet:active})),...readRows_(book,archived.getName(),system).map(t=>({task:t,sheet:archived}))];
+  readRows_(book,audit.getName(),system); // Reject an unexpected audit layout before any write.
+  return {book,system,active,archived,audit,all,options:taskOptions_(book,system)};
+}
+function taskFind_(ctx,id){const hits=ctx.all.filter(r=>r.task.ID===id);if(hits.length!==1)throw new Error('La tarea no tiene una ubicación única. Revisa la fuente antes de editar.');return hits[0];}
+function taskRow_(sheet,id){const hits=sheet.getRange(1,1,sheet.getLastRow(),1).getValues().map((r,i)=>r[0]===id?i+1:0).filter(Boolean);if(hits.length!==1)throw new Error('No hay una fila única para '+id+'.');return hits[0];}
+function taskHeaders_(ctx,sheet){return JSON.parse(ctx.system['schema_columns:'+sheet.getName()]);}
+function taskNativeRow_(ctx,sheet,row){
+  const headers=taskHeaders_(ctx,sheet),column=n=>{let s='';for(;n;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s;};
+  const result=Sheets.Spreadsheets.get(HUB_CORE_ID,{ranges:[quoteSheet_(sheet.getName())+'!A'+row+':'+column(headers.length)+row],includeGridData:true,fields:'sheets(data(rowData(values(userEnteredValue,userEnteredFormat,dataValidation,chipRuns))))'});
+  return (((result.sheets[0].data||[])[0].rowData||[])[0]||{}).values||[];
+}
+function taskCell_(v){if(v===null||v==='')return {};return {userEnteredValue:typeof v==='number'?{numberValue:v}:typeof v==='boolean'?{boolValue:v}:{stringValue:String(v)}};}
+function taskChanges_(ctx,record,patch){
+  const headers=taskHeaders_(ctx,record.sheet),row=taskRow_(record.sheet,record.task.ID),native=taskNativeRow_(ctx,record.sheet,row);
+  return Object.keys(patch).filter(k=>JSON.stringify(record.task[k]??null)!==JSON.stringify(patch[k]??null)).map(k=>{
+    const col=headers.indexOf(k);if(col<0)throw new Error('La fuente no contiene '+k+'.');
+    if(native[col]?.userEnteredValue?.formulaValue||native[col]?.chipRuns?.length)throw new Error('El campo '+k+' contiene una fórmula o chip. Edítalo en su fuente nativa.');
+    const condition=native[col]?.dataValidation?.condition;
+    if(patch[k]!==null&&condition?.type==='ONE_OF_LIST'&&typeof patch[k]!=='boolean'&&!condition.values.some(v=>v.userEnteredValue===String(patch[k])))throw new Error('El valor de '+k+' no pertenece a su validación actual.');
+    return {updateCells:{start:{sheetId:record.sheet.getSheetId(),rowIndex:row-1,columnIndex:col},rows:[{values:[taskCell_(patch[k])]}],fields:'userEnteredValue'}};
+  });
+}
+function taskRequest_(p){if(!p||typeof p.requestId!=='string'||!/^[A-Za-z0-9-]{10,100}$/.test(p.requestId))throw new Error('Identificador de cambio inválido.');return taskHash_(p);}
+function taskAudit_(ctx,p,signature,action,before,after){
+  const values=[p.requestId,p.id||'*',cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone()),'Arc',action,signature,JSON.stringify(before),JSON.stringify(after)];
+  if(values.some(v=>String(v).length>49000))throw new Error('El cambio es demasiado grande para su recibo. Divide la operación.');
+  return {appendCells:{sheetId:ctx.audit.getSheetId(),rows:[{values:values.map(taskCell_)}],fields:'userEnteredValue'}};
+}
+function taskPrevious_(ctx,p,signature){
+  const rows=readRows_(ctx.book,ctx.audit.getName(),ctx.system).filter(r=>r['Request ID']===p.requestId);
+  if(rows.length>1)throw new Error('El cambio tiene más de un recibo. Revisa el historial.');
+  if(!rows.length)return null;if(rows[0].Solicitud!==signature)throw new Error('El cambio ya se envió con otro contenido. Reabre la ficha antes de guardar de nuevo.');
+  return rows[0];
+}
+function taskDate_(v){
+  if(v===null||v==='')return null;if(typeof v==='number'&&Number.isFinite(v)&&v>=1&&v<=2958465)return Math.floor(v);
+  if(typeof v!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(v))throw new Error('Fecha inválida. Usa el selector de fecha.');
+  const millis=Date.parse(v+'T00:00:00Z');if(!Number.isFinite(millis)||new Date(millis).toISOString().slice(0,10)!==v)throw new Error('La fecha no existe.');
+  return (millis-Date.UTC(1899,11,30))/86400000;
+}
+function taskValidate_(ctx,record,fields){
+  if(!fields||typeof fields!=='object'||Array.isArray(fields))throw new Error('Faltan los cambios de la tarea.');
+  const patch={};Object.keys(fields).forEach(k=>{
+    if(!TASK_EDIT_FIELDS.includes(k)||k==='Cierre / resultado'&&record.sheet===ctx.active)throw new Error('No se puede editar '+k+' desde esta ficha.');
+    let v=fields[k];if(v==='')v=null;
+    if(TASK_DATE_FIELDS.includes(k))v=taskDate_(v);
+    else if(k==='Delegable'){if(v!==null&&typeof v!=='boolean')throw new Error('Delegable debe ser sí, no o vacío.');}
+    else if(k==='Tiempo estimado (min)'){if(v!==null&&(typeof v!=='number'||!Number.isFinite(v)||v<0||v>100000))throw new Error('Tiempo estimado inválido.');}
+    else if(v!==null&&(typeof v!=='string'||v.length>12000))throw new Error('Texto inválido en '+k+'.');
+    if(ctx.options[k]?.length&&v!==null&&v!==record.task[k]&&!ctx.options[k].includes(v))throw new Error('Valor no permitido en '+k+'.');
+    patch[k]=v;
+  });
+  const next=Object.assign({},record.task,patch);
+  if(typeof next.Tarea!=='string'||!next.Tarea.trim())throw new Error('La tarea necesita un nombre.');
+  if('Proyecto ID' in patch){const projects=readRows_(ctx.book,String(ctx.system.source_projects),ctx.system),hits=projects.filter(p=>p.ID===patch['Proyecto ID']);if(patch['Proyecto ID']&&hits.length!==1)throw new Error('El proyecto no tiene una identidad única.');patch.Proyecto=hits[0]?.Nombre||null;}
+  const closed=['Completado','Cancelado'].includes(next.Estado);
+  if('Estado' in patch&&!closed&&record.sheet===ctx.archived)patch['Fecha completada']=null;
+  if(closed&&!next['Fecha completada'])patch['Fecha completada']=Math.floor(cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone()));
+  if(!closed&&next['Fecha completada']&&!('Estado' in patch))patch.Estado='Completado';
+  if('Estado' in patch&&!closed&&record.sheet===ctx.active&&next['Fecha completada'])throw new Error('Una tarea abierta debe tener la fecha de finalización vacía.');
+  return patch;
+}
+function taskRelocate_(ctx,id){
+  // Copy the entire native row by header, verify the copy, then remove the source.
+  const hits=ctx.all.filter(r=>r.task.ID===id);if(!hits.length||hits.length>2)throw new Error('Ubicación inesperada al mover la tarea.');
+  const example=hits[0].task,closed=!!example['Fecha completada']||['Completado','Cancelado'].includes(example.Estado),dest=closed?ctx.archived:ctx.active;
+  let source=hits.find(r=>r.sheet!==dest),target=hits.find(r=>r.sheet===dest);
+  if(!source)return taskFind_(ctx,id).task;
+  if(target&&taskFingerprint_(target.task)!==taskFingerprint_(source.task))throw new Error('Hay dos versiones distintas de la tarea. Se conservan ambas para revisar.');
+  if(!target){
+    const headers=taskHeaders_(ctx,source.sheet),native=taskNativeRow_(ctx,source.sheet,taskRow_(source.sheet,id)),targetHeaders=taskHeaders_(ctx,dest);
+    const values=targetHeaders.map(k=>headers.includes(k)?native[headers.indexOf(k)]||{}:taskCell_(k==='Fecha cierre'?source.task['Fecha completada']||Math.floor(cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone())):null));
+    Sheets.Spreadsheets.batchUpdate({requests:[{appendCells:{sheetId:dest.getSheetId(),rows:[{values}],fields:'userEnteredValue,userEnteredFormat,dataValidation,chipRuns'}}]},HUB_CORE_ID);SpreadsheetApp.flush();
+    const rows=readRows_(ctx.book,dest.getName(),ctx.system).filter(r=>r.ID===id);if(rows.length!==1||taskFingerprint_(rows[0])!==taskFingerprint_(source.task))throw new Error('No se ha verificado la copia. La tarea original se conserva.');
+    target={task:rows[0],sheet:dest};
+  }
+  // A new read rejects an external change made while the copy was being verified.
+  const current=readRows_(ctx.book,source.sheet.getName(),ctx.system).filter(r=>r.ID===id);
+  if(current.length!==1||taskVersion_(current[0])!==taskVersion_(source.task))throw new Error('La tarea cambió durante el traslado. Se conservan ambas filas para revisar.');
+  const row=taskRow_(source.sheet,id);Sheets.Spreadsheets.batchUpdate({requests:[{deleteDimension:{range:{sheetId:source.sheet.getSheetId(),dimension:'ROWS',startIndex:row-1,endIndex:row}}}]},HUB_CORE_ID);SpreadsheetApp.flush();
+  return target.task;
+}
+function updateTask(payload){
+  assertOwner_();const signature=taskRequest_(payload),lock=LockService.getScriptLock();if(!lock.tryLock(10000))throw new Error('Hay otro cambio en curso. Conserva la ficha y reintenta.');
+  try{
+    let ctx=taskContext_(),previous=taskPrevious_(ctx,payload,signature);
+    if(previous){
+      const after=JSON.parse(previous.Después),hits=ctx.all.filter(r=>r.task.ID===payload.id);
+      if(hits.length&&hits.every(r=>taskFingerprint_(r.task)===taskFingerprint_(after)))taskRelocate_(ctx,payload.id);
+      return {id:payload.id,verified:true,replayed:true};
+    }
+    const record=taskFind_(ctx,payload.id);if(typeof payload.expectedVersion!=='string'||taskVersion_(record.task)!==payload.expectedVersion)throw new Error('La tarea cambió desde que abriste la ficha. Tus cambios siguen en el formulario; compáralos con la fuente y reabre la tarea.');
+    const patch=taskValidate_(ctx,record,payload.fields);
+    if(!Object.keys(patch).some(k=>JSON.stringify(patch[k])!==JSON.stringify(record.task[k]??null)))return {id:payload.id,verified:true,unchanged:true};
+    patch['Última edición por']='Arc';patch['Última actualización']=cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone());
+    const after=Object.assign({},record.task,patch),requests=taskChanges_(ctx,record,patch);requests.push(taskAudit_(ctx,payload,signature,'Editar tarea',record.task,after));
+    const prewrite=taskContext_();if(taskVersion_(taskFind_(prewrite,payload.id).task)!==payload.expectedVersion)throw new Error('La tarea cambió mientras se preparaba el guardado. Conserva la ficha y compara la fuente.');
+    Sheets.Spreadsheets.batchUpdate({requests},HUB_CORE_ID);SpreadsheetApp.flush();
+    ctx=taskContext_();const saved=taskFind_(ctx,payload.id).task;
+    if(taskVersion_(saved)!==taskVersion_(after)||!taskPrevious_(ctx,payload,signature))throw new Error('No se ha verificado el cambio. Conserva la ficha y reintenta con el mismo contenido.');
+    const finalTask=taskRelocate_(ctx,payload.id),finalCtx=taskContext_();taskFind_(finalCtx,payload.id);
+    return {id:payload.id,verified:true,archived:!!finalTask['Fecha completada']||['Completado','Cancelado'].includes(finalTask.Estado)};
+  }finally{lock.releaseLock();}
+}
+function reorderTasks(payload){
+  assertOwner_();const signature=taskRequest_(payload),lock=LockService.getScriptLock();if(!lock.tryLock(10000))throw new Error('Hay otro cambio en curso. Vuelve a intentarlo.');
+  try{
+    const ctx=taskContext_();if(taskPrevious_(ctx,payload,signature))return {verified:true,replayed:true};
+    const records=ctx.all.filter(r=>r.sheet===ctx.active&&!r.task['Fecha completada']&&!['Completado','Cancelado'].includes(r.task.Estado));
+    if(!Array.isArray(payload.ids)||payload.ids.length!==records.length||new Set(payload.ids).size!==records.length||!payload.ids.every(id=>records.some(r=>r.task.ID===id)))throw new Error('La lista de tareas cambió. Actualiza antes de reordenar.');
+    if(!payload.versions||!records.every(r=>payload.versions[r.task.ID]===taskVersion_(r.task)))throw new Error('Alguna tarea cambió. Actualiza antes de reordenar.');
+    const before=[],after=[],requests=[],stamp=cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone());
+    payload.ids.forEach((id,i)=>{const record=records.find(r=>r.task.ID===id);if(record.task['Orden manual']===i+1)return;const patch={'Orden manual':i+1,'Última edición por':'Arc','Última actualización':stamp};before.push(record.task);after.push(Object.assign({},record.task,patch));requests.push(...taskChanges_(ctx,record,patch));});
+    if(!requests.length)return {verified:true,unchanged:true};requests.push(taskAudit_(ctx,payload,signature,'Reordenar tareas',before,after));
+    const prewrite=taskContext_(),liveRecords=prewrite.all.filter(r=>r.sheet===prewrite.active&&!r.task['Fecha completada']&&!['Completado','Cancelado'].includes(r.task.Estado));
+    if(liveRecords.length!==records.length||!liveRecords.every(r=>payload.versions[r.task.ID]===taskVersion_(r.task)))throw new Error('La lista cambió mientras se preparaba el orden. Actualiza antes de reordenar.');
+    Sheets.Spreadsheets.batchUpdate({requests},HUB_CORE_ID);SpreadsheetApp.flush();
+    const finalCtx=taskContext_();if(!after.every(t=>taskVersion_(taskFind_(finalCtx,t.ID).task)===taskVersion_(t))||!taskPrevious_(finalCtx,payload,signature))throw new Error('No se ha verificado el orden. Reintenta la misma operación.');
+    return {verified:true};
+  }finally{lock.releaseLock();}
+}

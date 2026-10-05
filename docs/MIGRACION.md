@@ -6,7 +6,7 @@ Arc acepta la opción de conexión temporal: pulsar **Conectar con Google** al a
 
 Se autoriza avanzar con código público y datos privados accesibles únicamente por la cuenta del propietario. El repositorio contiene interfaz, lógica y pruebas sintéticas, sin registros personales, copias de Sheets, conversaciones, IDs privados del núcleo ni secretos. No se crean Firebase, Firestore, Cloud Run ni un servicio de renovación de sesiones. El borrador local de esa alternativa no está publicado ni forma parte del despliegue.
 
-Estado: transporte temporal preparado y pruebas locales superadas. La configuración nueva de Google y su conexión real siguen pendientes. La consola de Google Cloud devolvió **Site Unavailable / Unable to access this site** desde el navegador remoto, también tras una recarga; no se pudo crear el cliente OAuth. El proyecto Apps Script actual conserva un Cloud project predeterminado, insuficiente para scripts.run. No se interpreta esta limitación como caída general de Google ni bloqueo anti-bot.
+Estado: repositorio público y fuente de Pages guardada como GitHub Actions; sin despliegue publicado. Transporte temporal preparado y pruebas locales superadas. La configuración nueva de Google y su conexión real siguen pendientes. La consola de Google Cloud devolvió **Site Unavailable / Unable to access this site** desde el navegador remoto, también tras una recarga; no se pudo crear el cliente OAuth. El proyecto Apps Script actual conserva un Cloud project predeterminado, insuficiente para scripts.run. No se interpreta esta limitación como caída general de Google ni bloqueo anti-bot.
 
 ## Acceso y seguridad
 
@@ -25,7 +25,7 @@ Estado: transporte temporal preparado y pruebas locales superadas. La configurac
 5. Configurar HUB_CORE_ID en las propiedades privadas del script, conservar HUB_OWNER_EMAIL e instalar los archivos de google/ en el mismo proyecto. Comprobar primero la web actual. No crear otra hoja ni cambiar sus permisos.
 6. Publicar una implementación adicional **API executable**, acceso **Only myself**. Conservar la URL /exec de la web existente. El valor para scripts.run es el ID de esa implementación API.
 7. Guardar en GitHub las variables ARC_GOOGLE_CLIENT_ID y ARC_API_DEPLOYMENT_ID. Son identificadores públicos. No se requiere ni se guarda un secreto OAuth en Pages.
-8. Configurar Pages con GitHub Actions y ejecutar el flujo manual. El build bloquea la publicación sin esos valores; --allow-unconfigured es solo una comprobación local.
+8. Pages ya está configurado con GitHub Actions; ejecutar el flujo manual cuando la conexión esté verificada. El build bloquea la publicación sin esos valores; --allow-unconfigured es solo una comprobación local.
 9. Ejecutar las pruebas reales siguientes antes de considerar Pages como acceso operativo. La publicación de archivos por sí sola no acredita la conexión.
 
 ## Aceptación real

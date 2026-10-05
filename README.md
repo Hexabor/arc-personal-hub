@@ -4,7 +4,7 @@ Interfaz adaptable a móvil y ordenador para capturar en Incoming y consultar el
 
 ## Estado · 5 de octubre de 2026
 
-Repositorio creado. Conserva la interfaz y la lógica de captura del HUB reparado (esquema 5), y prepara el transporte autenticado para GitHub Pages. **La migración todavía no está activada ni verificada en Google.** La instalación actual sigue siendo el acceso operativo.
+Repositorio público. Pages configurado para publicar mediante GitHub Actions; todavía sin despliegue conectado. Conserva la interfaz y la lógica de captura del HUB reparado (esquema 5), y prepara el transporte autenticado para GitHub Pages. **La migración todavía no está activada ni verificada en Google.** La instalación actual sigue siendo el acceso operativo.
 
 Arc ha elegido conexión **por sesión**: pulsar Conectar con Google al abrir o al caducar el acceso, usando la sesión de Google que ya esté abierta. Esta decisión sustituye el requisito previo de persistencia entre aperturas y permite avanzar con código público y datos privados solo para el propietario. No se crean Firebase ni servidores adicionales.
 

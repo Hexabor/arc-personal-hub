@@ -24,7 +24,7 @@ function runtime(config={clientId:'synthetic.apps.googleusercontent.com',apiDepl
   r.login();r.expire();assert.equal(r.api.ready(),false);
   r.login();r.browser.fetch=async()=>({ok:true,status:200,json:async()=>{r.api.disconnect();return {done:true,response:{result:{secret:'never returned'}}};}});
   await assert.rejects(r.api.call('getHubData'),/sesión ha cambiado/);
-  r.login();r.browser.fetch=async()=>{throw Error('Network lost')};await assert.rejects(r.api.call('captureIncoming',{text:'Keep draft',requestId:'retry-001'}),/Conserva el borrador/);
+  r.login();r.browser.fetch=async()=>{throw Error('Network lost')};await assert.rejects(r.api.call('captureIncoming',{text:'Keep draft',requestId:'retry-001'}),/Conserva los cambios/);
   assert.ok(!source.includes('localStorage'));assert.ok(!source.includes('console.log'));
   // The shared interface must not read or show private data before sign-in.
   const elements=new Map(),listeners={};

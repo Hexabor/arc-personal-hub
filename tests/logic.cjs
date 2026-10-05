@@ -18,6 +18,8 @@ assert.ok(!hooks.matchesTask({...task,'Tiempo estimado (min)':null},{minutes:'5'
 assert.ok(hooks.matchesTask({...task,'Tiempo estimado (min)':null},{minutes:'5',unknown:true}));
 assert.ok(!hooks.openTask({...task,'Fecha completada':46271}));assert.ok(!hooks.openTask({...task,Estado:'Cancelado'}));
 const unsorted=[{ID:'A','Fecha creación':null,'Orden manual':3},{ID:'B','Fecha creación':46299,'Orden manual':2},{ID:'C','Fecha creación':46300,'Orden manual':1}];
+const incomingOrder=[{ID:'I1','Fecha captura':46300.5,'Orden manual':2},{ID:'I2','Fecha captura':46300.6,'Orden manual':1}];
+assert.equal(hooks.sortedIncoming(incomingOrder,'newest').map(r=>r.ID).join(','),'I2,I1');assert.equal(hooks.sortedIncoming(incomingOrder,'oldest').map(r=>r.ID).join(','),'I1,I2');assert.equal(hooks.sortedIncoming(incomingOrder,'manual').map(r=>r.ID).join(','),'I2,I1');assert.equal(incomingOrder[0].ID,'I1');
 assert.equal(hooks.sortedTasks(unsorted,'newest').map(t=>t.ID).join(','),'C,B,A');assert.equal(hooks.sortedTasks(unsorted,'oldest').map(t=>t.ID).join(','),'B,C,A');assert.equal(hooks.sortedTasks(unsorted,'manual').map(t=>t.ID).join(','),'C,B,A');assert.equal(unsorted[0].ID,'A');
 assert.ok(hooks.reviewBadge({'Última edición por':'Arc','Revisado por':'Sistema','Huella revisada':'old',_reviewFingerprint:'new'}).includes('pendiente'));assert.ok(hooks.reviewBadge({'Última edición por':'Arc','Revisado por':'Sistema','Huella revisada':'same',_reviewFingerprint:'same'}).includes('Revisado por Sistema'));
 for(const view of ['tareas','proyectos','personas','memoria','incoming','modulos','mas','buscar','conexion']){

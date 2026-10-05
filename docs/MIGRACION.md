@@ -46,3 +46,16 @@ El estado operativo y los enlaces privados permanecen en PRJ-2026-0001 y su tare
 - [Modelo de tokens de Google Identity Services](https://developers.google.com/identity/oauth2/web/guides/use-token-model)
 - [Proyectos estándar de Google Cloud para Apps Script](https://developers.google.com/apps-script/guides/cloud-platform-projects)
 - [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)
+
+
+## Edición y ordenación de tareas · 0.2.0
+
+El backend admite lectura/captura con esquemas 5 y 6. La edición requiere 6, rutas de activas/archivadas, fuente Cambios HUB y task_edit_status=activo. Las nuevas columnas son Orden manual, Última edición por, Revisado por, Fecha revisión, Huella revisada y Feedback revisión. Se añaden al final; en archivadas se conservan también las dos columnas de cierre. La migración inicial conserva el orden actual y no atribuye autores históricos. Catálogos determina estados y prioridades.
+
+Las fichas admiten todos los campos operativos y protegen IDs, creación, fórmulas/chips y metadata. Un cambio de proyecto deriva su nombre desde el ID único. Las ediciones usan una huella completa para detectar conflictos y una solicitud con recibo atómico para reintentos. Guardar o reordenar marca Arc y actualiza la fecha; las revisiones previas permanecen como antecedente y pierden vigencia si cambia el contenido.
+
+La revisión real se realiza en ChatGPT según la norma canónica. Registrar Sistema, fecha, feedback y la huella del contenido leído, con comprobación fresca antes y después. No hay botón que invente una revisión ni un agente automático en Pages. La receta exacta de huella está en taskFingerprint_ de Code.gs y Sistema.task_review_fingerprint.
+
+Las escrituras ajenas a este script no comparten su bloqueo: se comprueba de nuevo antes de retirar una copia. Una discrepancia conserva las dos filas para revisión; no se borra una versión no contrastada. Una edición directa en Sheets no puede atribuirse automáticamente a una persona.
+
+Validación local: tests/task-edits.cjs cubre edición, texto literal, fechas, proyecto, permisos, campos protegidos, fórmulas, conflictos, recibos, reintentos, orden global, cierre con fallo parcial, reapertura y revisión invalidada. Los fixtures son sintéticos. La evidencia de instalación y pruebas reales pertenece al proyecto privado; no se exportan registros personales.

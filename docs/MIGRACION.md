@@ -59,3 +59,12 @@ La revisión real se realiza en ChatGPT según la norma canónica. Registrar Sis
 Las escrituras ajenas a este script no comparten su bloqueo: se comprueba de nuevo antes de retirar una copia. Una discrepancia conserva las dos filas para revisión; no se borra una versión no contrastada. Una edición directa en Sheets no puede atribuirse automáticamente a una persona.
 
 Validación local: tests/task-edits.cjs cubre edición, texto literal, fechas, proyecto, permisos, campos protegidos, fórmulas, conflictos, recibos, reintentos, orden global, cierre con fallo parcial, reapertura y revisión invalidada. Los fixtures son sintéticos. La evidencia de instalación y pruebas reales pertenece al proyecto privado; no se exportan registros personales.
+
+
+## Ordenación de Incoming · 0.2.1
+
+Incoming ofrece Mi orden, Más recientes primero y Más antiguas primero. Mi orden se guarda en Sheets y se comparte entre dispositivos; la preferencia del selector permanece en cada navegador. Las flechas reordenan solo las entradas abiertas, con una lista completa y versiones comprobadas. El texto original, estado y recibos de consolidación permanecen intactos. Las nuevas capturas sin orden se muestran al final.
+
+Incoming conserva Orden manual, Última edición por y los campos de revisión ya usados por tareas. Cada reordenación registra Arc, fecha nativa y un recibo atómico en Cambios HUB; otra edición invalida la revisión por huella. Revisión y consolidación son operaciones diferentes. La migración no atribuye autores históricos y requiere incoming_order_status=activo. El esquema 6 sigue admitido; los consumidores deben resolver los encabezados vigentes A:P.
+
+Pruebas sintéticas: fechas con hora, orden manual sin alterar la fuente, autorización, lista abierta exacta, conflictos, reintentos y preservación de entradas procesadas. La prueba viva cambia y recupera un orden existente, contrastando texto y estado mediante Sheets.

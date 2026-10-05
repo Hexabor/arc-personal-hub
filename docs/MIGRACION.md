@@ -6,9 +6,11 @@ Arc acepta la opción de conexión temporal: pulsar **Conectar con Google** al a
 
 Se autoriza avanzar con código público y datos privados accesibles únicamente por la cuenta del propietario. El repositorio contiene interfaz, lógica y pruebas sintéticas, sin registros personales, copias de Sheets, conversaciones, IDs privados del núcleo ni secretos. No se crean Firebase, Firestore, Cloud Run ni un servicio de renovación de sesiones. El borrador local de esa alternativa no está publicado ni forma parte del despliegue.
 
-Estado: repositorio público y fuente de Pages guardada como GitHub Actions; sin despliegue publicado. Transporte temporal preparado y pruebas locales superadas. El propietario completó manualmente la configuración de Google Cloud desde su navegador: proyecto estándar dedicado creado, Apps Script API y Sheets API habilitadas, Google Auth Platform en pruebas con solo el propietario como usuario de prueba, y permisos userinfo.email y spreadsheets guardados. Las capturas aportadas verifican esos pasos. El ID de cliente OAuth facilitado por el propietario está guardado y verificado en la variable ARC_GOOGLE_CLIENT_ID de GitHub Actions.
+Estado verificado · 05/10/2026: [HUB Pages](https://hexabor.github.io/arc-personal-hub/) publicado y conectado con la cuenta del propietario. Apps Script asociado al proyecto estándar compartido, propiedades privadas instaladas y permiso Sheets reautorizado. setupHub y getHubData terminaron sin errores; la web privada anterior también vuelve a cargar datos. Implementación adicional API executable con acceso Solo yo creada; ambos identificadores de Actions guardados y contrastados.
 
-La consola de Google Cloud sigue sin estar accesible desde el navegador remoto. El Apps Script ya está asociado al proyecto estándar del cliente OAuth: se ha recargado su configuración y verificado el número de proyecto. La instalación del código con sus propiedades privadas, la reautorización, la implementación API, la conexión real y la publicación de Pages siguen pendientes. No interpretar la configuración del cliente OAuth como conexión operativa.
+La publicación 37328703828 superó pruebas de lógica/transporte, compilación y despliegue sobre b2c87f0973f1ccf6731aa5ffaa581413f65dbb69. Se corrigió el flujo para separar build/deploy y pasar un artefacto único por ejecución e intento: el primer despliegue no encontró el recién subido y el reintento generó duplicados. La consola Cloud ya es accesible; el origen JavaScript del cliente existente se verificó como https://hexabor.github.io. No se creó otro cliente ni se guardó un secreto en Pages.
+
+En el navegador se verificaron: bloqueo sin conexión; lectura real del propietario; recarga que exige reconectar; conservación del borrador al reconectar; captura literal con recibo contrastado con Sheets y fechas nativas; desconexión que oculta registros y reconexión que recupera lectura. Las comprobaciones físicas, otra cuenta, caducidad y revocación reales siguen pendientes.
 
 ## Acceso y seguridad
 
@@ -20,15 +22,9 @@ La consola de Google Cloud sigue sin estar accesible desde el navegador remoto. 
 
 ## Activación y avance
 
-1. **Completado por el propietario:** crear un proyecto **estándar** de Google Cloud dedicado al HUB, sin Firebase, servidores ni vinculación de facturación para esta ruta. Si Google solicita condiciones o facturación, detenerse y revisar antes de aceptar. Conservar versiones y recuperación de la web privada actual.
-2. **Completado y verificado por capturas:** configurar Google Auth Platform: app personal, audiencia externa en pruebas y solo el propietario como usuario de prueba. No añadir otros usuarios.
-3. **Completado:** habilitar Apps Script API y Sheets API. Crear un cliente OAuth de aplicación web con el origen HTTPS real que GitHub asigne a Pages. No confundir el origen con la URL completa del repositorio. No subir un client secret.
-4. **Asociación completada y verificada en Apps Script:** el script usa el mismo proyecto estándar del cliente OAuth. Google avisa de que se revocan las autorizaciones anteriores y no se puede volver al proyecto predeterminado administrado por Apps Script. **Pendiente:** volver a autorizar y comprobar la web tras el cambio; conservar código, versiones y URL no permite restaurar ese proyecto predeterminado.
-5. Configurar HUB_CORE_ID en las propiedades privadas del script, conservar HUB_OWNER_EMAIL e instalar los archivos de google/ en el mismo proyecto. Comprobar primero la web actual. No crear otra hoja ni cambiar sus permisos.
-6. Publicar una implementación adicional **API executable**, acceso **Only myself**. Conservar la URL /exec de la web existente. El valor para scripts.run es el ID de esa implementación API.
-7. **Parcial:** ARC_GOOGLE_CLIENT_ID ya está guardada y verificada; sigue pendiente ARC_API_DEPLOYMENT_ID. Son identificadores públicos. No se requiere ni se guarda un secreto OAuth en Pages.
-8. Pages ya está configurado con GitHub Actions. Verificar primero el servidor y la web privada; ejecutar después el flujo manual con los dos identificadores reales para publicar un candidato, y comprobar la conexión desde el origen real de Pages antes de declararlo operativo. El build bloquea la publicación sin esos valores; --allow-unconfigured es solo una comprobación local.
-9. Ejecutar las pruebas reales siguientes antes de considerar Pages como acceso operativo. La publicación de archivos por sí sola no acredita la conexión.
+Los pasos de configuración y publicación están completados: proyecto estándar dedicado común al script y cliente, APIs Apps Script/Sheets habilitadas, audiencia externa en pruebas solo para el propietario, cliente OAuth web con origen real, propiedades HUB_CORE_ID y HUB_OWNER_EMAIL privadas, API executable Solo yo y variables ARC_GOOGLE_CLIENT_ID / ARC_API_DEPLOYMENT_ID. Se conservó la implementación web anterior y su URL.
+
+Para futuras actualizaciones, comprobar el contrato y código instalados, publicar una versión de la API privada y ejecutar el flujo manual Pages con los identificadores vigentes. El build bloquea una configuración ausente; --allow-unconfigured sirve solo para comprobaciones locales. Los secretos, datos y enlaces privados de operación permanecen fuera de los archivos públicos. No repetir la creación del proyecto/cliente ni cambiar el acceso del núcleo.
 
 ## Aceptación real
 
@@ -40,7 +36,7 @@ La consola de Google Cloud sigue sin estar accesible desde el navegador remoto. 
 
 ## Recuperación y continuidad
 
-La web privada existente fue el acceso operativo antes de asociar el proyecto estándar. Su reautorización y comprobación tras ese cambio siguen pendientes; no darla por verificada ahora solo por conservar su URL. Conservar su versión anterior y su URL; asociar un Cloud project puede exigir reautorización, por lo que no prometer una recuperación sin probarla. No abrir el backend a Anyone ni exportar datos al repositorio.
+La web privada existente se ha reautorizado y comprobado tras asociar el proyecto estándar: carga los datos actuales. Se conserva su implementación, versión anterior y URL como acceso alternativo. La asociación al proyecto estándar no permite volver al proyecto predeterminado administrado por Apps Script; conservar versiones no revierte esa asociación. No abrir el backend a Anyone ni exportar datos al repositorio.
 
 El estado operativo y los enlaces privados permanecen en PRJ-2026-0001 y su tarea existente. No duplicar ese seguimiento en Issues.
 

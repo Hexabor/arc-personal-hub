@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const scopes = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email';
-  const methods = new Set(['getHubData', 'captureIncoming', 'updateTask', 'reorderTasks']);
+  const methods = new Set(['getHubData', 'captureIncoming', 'updateTask', 'reorderTasks', 'reorderIncoming']);
   const config = window.ARC_PUBLIC_CONFIG || {};
   let token = '', expiresAt = 0, tokenClient, pendingLogin = false, session = 0;
   const configured = /^[\w.-]+\.apps\.googleusercontent\.com$/.test(config.clientId || '') && /^[\w-]{20,}$/.test(config.apiDeploymentId || '');

@@ -261,7 +261,7 @@ function taskRelocate_(ctx,id){
   if(target&&taskFingerprint_(target.task)!==taskFingerprint_(source.task))throw new Error('Hay dos versiones distintas de la tarea. Se conservan ambas para revisar.');
   if(!target){
     const headers=taskHeaders_(ctx,source.sheet),native=taskNativeRow_(ctx,source.sheet,taskRow_(source.sheet,id)),targetHeaders=taskHeaders_(ctx,dest);
-    const values=targetHeaders.map(k=>headers.includes(k)?native[headers.indexOf(k)]||{}:taskCell_(k==='Fecha cierre'?source.task['Fecha completada']||Math.floor(cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone())):null));
+    const values=targetHeaders.map(k=>headers.includes(k)?native[headers.indexOf(k)]||{}:k==='Fecha cierre'?Object.assign(taskCell_(source.task['Fecha completada']||Math.floor(cellJSON_(new Date(),ctx.book.getSpreadsheetTimeZone()))),{userEnteredFormat:{numberFormat:{type:'DATE',pattern:'yyyy-mm-dd'}}}):taskCell_(null));
     Sheets.Spreadsheets.batchUpdate({requests:[{appendCells:{sheetId:dest.getSheetId(),rows:[{values}],fields:'userEnteredValue,userEnteredFormat,dataValidation,chipRuns'}}]},HUB_CORE_ID);SpreadsheetApp.flush();
     const rows=readRows_(ctx.book,dest.getName(),ctx.system).filter(r=>r.ID===id);if(rows.length!==1||taskFingerprint_(rows[0])!==taskFingerprint_(source.task))throw new Error('No se ha verificado la copia. La tarea original se conserva.');
     target={task:rows[0],sheet:dest};

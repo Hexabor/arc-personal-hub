@@ -14,4 +14,6 @@ Pruebas previas: compilación Pages, sintaxis JavaScript y suites logic/pages/ta
 
 Comprobación publicada: tras cada despliegue, abrir HUB desconectado, comprobar enlace visible y clicar mapa-fases.html; revisar fecha/hito, temas, ficha y consola. Esta comprobación aislada no requiere cargar registros ni editar datos. Documentar run/commit y cualquier fallo real en el recibo del encargo.
 
+Primera integración comprobada el 12/10/2026: commit d08741201f22b30ff7625518b16d3ab1d390402b, [publicación Pages 38181672172](https://github.com/Hexabor/arc-personal-hub/actions/runs/38181672172), build y deploy success. En el navegador, HUB desconectado mostró los dos accesos y el clic desde la barra lateral abrió el árbol con nueve fases. El remate Árbol integrado se cerró tras esta comprobación; la aceptación del HUB continúa pendiente.
+
 Recuperación: base anterior al árbol603ca5cac40420b10780a46d62afee1de682010a. Revertir únicamente el commit del árbol y volver a ejecutar el workflow vigente; releer head antes, conservar avances posteriores. La API privada, permisos, cálculos y datos operativos no son parte de este cambio.

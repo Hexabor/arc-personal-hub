@@ -388,7 +388,7 @@ function abrirSub(id) {
 function cerrarSub() { velo.hidden = true; velo.innerHTML = ''; document.getElementById('versub')?.focus(); }
 
 const POR = Object.fromEntries(FASES.map(f => [f.id, f])), REC = Object.fromEntries(RECURSOS.map(r => [r.id, r])), RAMA = Object.fromEntries(RAMAS.map(r => [r.id, r]));
-const CLAVE = 'arbol-fases-arc-personal-hub:v2';
+const CLAVE = 'arbol-fases-vacaciones-hub:v1';
 let hechas = new Set(), conseguidos = new Set();
 try { const g = JSON.parse(localStorage.getItem(CLAVE) || '{}'); hechas = new Set(g.h || []); conseguidos = new Set(g.r || []); } catch {}
 RECURSOS.forEach(r => { if (r.ok) conseguidos.add(r.id); });   // recursos ya disponibles

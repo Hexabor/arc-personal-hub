@@ -16,4 +16,6 @@ Ejecutar las pruebas existentes y tests/vacaciones.cjs, y build.py. El HTML gene
 
 ## Mantenimiento
 
+Publicación del 29/10/2026: el código de la app, las comprobaciones y Pages se publicaron sobre el mismo repositorio y flujo existentes. La API privada se actualizó a versión 8, conservando su identificador y Solo yo. La activación de la web privada y la prueba de lectura/guardado reales siguen pendientes de la autorización de datos que solicita Google al titular. Las pruebas locales y la vista previa no sustituyen esa comprobación.
+
 Actualizar este contrato, la documentación privada del proyecto y docs/mapa-vacaciones.html al avanzar. El árbol conserva el formato existente y solo cambia sus datos; las marcas locales no modifican el backend. Diferenciar pruebas sintéticas, prueba real en Google y aceptación física. Enlace estable: https://hexabor.github.io/arc-personal-hub/mapa-vacaciones.html.

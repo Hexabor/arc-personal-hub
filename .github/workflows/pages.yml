@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node tests/logic.cjs && node tests/pages.cjs
+      - run: node tests/logic.cjs && node tests/pages.cjs && node tests/vacaciones.cjs
       - run: python3 build.py --pages
         env:
           ARC_GOOGLE_CLIENT_ID: ${{ vars.ARC_GOOGLE_CLIENT_ID }}

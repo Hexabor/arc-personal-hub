@@ -16,8 +16,10 @@ Ejecutar las pruebas existentes y tests/vacaciones.cjs, y build.py. El HTML gene
 
 ## Mantenimiento
 
-Publicación del 29/10/2026: código y Pages publicados sobre el repositorio y flujo existentes. API y web privadas actualizadas a versión 8, conservando identificadores y Solo yo. El titular autorizó expresamente los permisos de identidad y Hojas de cálculo; no repetir esa solicitud para el mismo alcance.
+Publicación del 29/10/2026: código y Pages publicados sobre el repositorio y flujo existentes. API privada en versión 8; web privada en versión 9 con escritorio compacto, conservando identificadores y Solo yo. El titular autorizó expresamente los permisos de identidad y Hojas de cálculo; no repetir esa solicitud para el mismo alcance.
 
 Validación real completada en Google y en Pages: lectura de los seis planes tras conectar, edición de una nota temporal y restauración del texto original, con dos recibos contrastados en Cambios. Guardar un transporte con los mismos valores conservó fecha, horas, coste y referencias. Se contrastaron los valores nativos en Sheets. Las pruebas sintéticas cubren además validación, conflictos y reintentos; no se confunden con las comprobaciones reales. La aceptación física en el móvil del titular sigue pendiente.
+
+Ajuste visual solicitado por Arc el 29/10/2026: en ordenador necesitaba bajar el zoom al 67 %; el aspecto móvil le parece adecuado. A partir de 1051 px se reducen fuentes, cabeceras, navegación, tarjetas y espacios vacíos; se aprovecha más ancho y la ficha de edición se compacta. Las reglas anteriores de móvil y tablet se conservan. Revisión visual al 100 % en escritorio y a 390 px sin desbordamiento horizontal; en móvil siguen los títulos de 31 px y las tarjetas de 15 px. El cambio es solo CSS y no requiere nuevas escrituras de planes ni permisos.
 
 Actualizar este contrato, la documentación privada del proyecto y docs/mapa-vacaciones.html al avanzar. El árbol conserva el formato existente y solo cambia sus datos; las marcas locales no modifican el backend. Diferenciar pruebas sintéticas, prueba real en Google y aceptación física. Enlace estable: https://hexabor.github.io/arc-personal-hub/mapa-vacaciones.html.

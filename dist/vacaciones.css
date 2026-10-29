@@ -1,3 +1,74 @@
 .vac-app{--forest:#294b3f;--pale:#eef2ec;--line:#dce4da;color:#28382f;max-width:1300px;margin:auto}.vac-hero{position:relative;overflow:hidden;background:var(--pale);border:1px solid var(--line);border-radius:22px;padding:36px;display:flex;justify-content:space-between;gap:30px;isolation:isolate}.vac-hero h1{font-size:clamp(28px,3vw,42px);letter-spacing:-1.5px;max-width:650px;margin:8px 0 14px;line-height:1.12;font-weight:650}.vac-eyebrow{font-size:10px;letter-spacing:1.5px;font-weight:700;color:#61796a;margin:0 0 8px}.vac-dates{font-size:14px;font-weight:600;text-transform:capitalize;margin:0 0 12px}.vac-intro{font-size:14px;line-height:1.65;max-width:600px;color:#5b6c60;margin:0}.vac-hero-actions{display:flex;min-width:170px;align-items:flex-end;flex-direction:column;justify-content:flex-start;gap:15px;position:relative;z-index:2}.vac-app .button.dark,.vac-dialog .button.dark{background:var(--forest,#294b3f);border-color:var(--forest,#294b3f)}.vac-hero .text-button{font-size:12px}.vac-landscape{position:absolute;bottom:-100px;right:0;width:370px;height:220px;opacity:.28;z-index:-1}.vac-landscape i{position:absolute;inset:40px -60px 0 0;background:#9ebaa2;border-radius:80% 20% 0 0;transform:rotate(-13deg)}.vac-landscape i:nth-child(2){inset:80px 20px 0 -50px;background:#6d987e;transform:rotate(12deg)}.vac-landscape i:nth-child(3){inset:130px -50px 0 -80px;background:#3b6554}.vac-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0;color:#657167;font-size:13px}.vac-toolbar p{margin:0}.vac-toolbar b{color:#294b3f}.vac-toolbar p span{padding:0 9px}.vac-toolbar>div{display:flex;align-items:center;gap:12px}.vac-toolbar select{border:0;background:transparent;color:#526457;max-width:210px}.vac-days{display:flex;gap:10px;overflow:auto;padding:0 0 20px}.vac-days button{font:inherit;min-width:70px;flex:1;max-width:115px;border:1px solid var(--line);background:white;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;gap:5px;color:#607064;cursor:pointer;min-height:92px}.vac-days small{font-size:10px;text-transform:uppercase;letter-spacing:.8px}.vac-days b{font-size:22px;font-weight:600;color:#2c4235}.vac-days button>span{font-size:10px;color:#8a978d}.vac-days button.selected{border-color:#294b3f;background:#294b3f;color:#c6d8cb}.vac-days button.selected b{color:white}.vac-days button.selected>span{color:#c6d8cb}.vac-columns{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr);gap:28px;margin-top:10px}.vac-section-heading{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:0 0 16px;margin-bottom:16px}.vac-section-heading h2{font-size:23px;letter-spacing:-.6px;margin:0}.vac-section-heading>span{font-size:11px;color:#758277}.vac-date-title{font-size:12px;font-weight:650;color:#66786b;text-transform:capitalize;margin:24px 0 12px}.vac-hint{font-size:13px;color:#738176;line-height:1.6;margin:0 0 15px}.vac-plan{background:#fff;border:1px solid var(--line);border-radius:15px;margin:0 0 12px;overflow:hidden}.vac-plan-body{padding:18px}.vac-plan-meta{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:10px;color:#7a867d;margin-bottom:12px}.vac-status{border-radius:30px;background:#f1f3ef;color:#697568;padding:5px 8px;font-size:10px;white-space:nowrap}.vac-status.confirmed{background:#e8f2e9;color:#3f6b45}.vac-status.waiting{background:#f8f1df;color:#8c7330}.vac-plan h3{font-size:16px;line-height:1.4;margin:0 0 7px;font-weight:650;letter-spacing:-.2px}.vac-plan p{font-size:12px;color:#6d7d71;line-height:1.6;margin:5px 0}.vac-plan p.vac-dependency{color:#8a733b;background:#fbf8ef;border-radius:6px;padding:7px 9px;margin:12px 0}.vac-plan-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;font-size:11px;color:#829086}.vac-plan-bottom .text-button{font-size:11px;padding:0;min-height:30px}.vac-scheduled{display:grid;grid-template-columns:78px 1fr}.vac-time{padding:20px 10px;border-right:1px solid var(--line);font-size:15px;font-weight:600;text-align:center;color:#42664f;background:#f9fbf8}.vac-time small{display:block;font-size:10px;font-weight:400;margin-top:8px;color:#7f9183}.vac-free{padding:18px;border:1px dashed var(--line);border-radius:13px;margin-bottom:16px;color:#8c988f;font-size:12px}.vac-free p{margin:0}.vac-free .text-button{font-size:11px;margin-top:7px}.vac-foot{display:flex;justify-content:space-between;font-size:11px;color:#8b978e;margin-top:30px}.vac-foot a{color:#728478}.vac-loading{padding:40px;color:#6a7b6e;background:#f4f6f2;border-radius:16px}.vac-error{padding:12px;background:#fff0e9;color:#884d32;font-size:13px;border-radius:8px}.vac-dialog{--forest:#294b3f;width:min(720px,calc(100% - 24px));max-height:90dvh;border:1px solid #dbe5dc;border-radius:20px;padding:28px;color:#2c4032}.vac-editor-head{display:flex;justify-content:space-between;align-items:center}.vac-editor-head .icon-button{font-size:26px}.vac-dialog h2{margin:6px 0 24px;font-size:27px;letter-spacing:-1px}.vac-dialog fieldset{padding:0;border:0;margin:0;min-width:0}.vac-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.vac-field{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;min-width:0}.vac-field:has(input[name="Plan"]),.vac-wide{grid-column:1/-1}.vac-field input,.vac-field select,.vac-field textarea{box-sizing:border-box;width:100%;padding:11px 12px;border:1px solid #d9e1d7;border-radius:8px;font:inherit;font-size:14px;font-weight:400;background:#fcfdfb;color:#2c4032;min-height:44px}.vac-field textarea{resize:vertical}.vac-field input:focus,.vac-field textarea:focus,.vac-field select:focus{outline:2px solid #89ab92;outline-offset:1px}.vac-form-help,.vac-references{font-size:11px;line-height:1.65;color:#849084;margin-top:18px}.vac-references{font-size:10px;white-space:pre-wrap;overflow-wrap:anywhere}.vac-editor-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px}#vac-save-status{font-size:12px;color:#8d673a;line-height:1.6}.vac-app button:focus-visible,.vac-dialog button:focus-visible{outline:2px solid #7d9e82;outline-offset:3px}
 @media(max-width:1050px){.vac-columns{grid-template-columns:1fr;gap:30px}.vac-hero{padding:28px}.vac-hero-actions{min-width:140px}.vac-unscheduled{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.vac-unscheduled>.vac-section-heading,.vac-unscheduled>.vac-hint{grid-column:1/-1}}
 @media(max-width:620px){.vac-hero{padding:24px;flex-direction:column;gap:22px;border-radius:17px}.vac-hero h1{font-size:31px}.vac-dates{font-size:12px;line-height:1.7}.vac-hero-actions{align-items:flex-start;flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px}.vac-hero-actions .button{font-size:12px}.vac-toolbar{align-items:flex-start;flex-direction:column;gap:10px}.vac-toolbar>div{width:100%;justify-content:space-between}.vac-days{gap:7px;margin-right:-15px;padding-right:15px}.vac-days button{min-width:57px;min-height:80px;padding:9px 5px}.vac-days small{font-size:9px}.vac-days b{font-size:20px}.vac-columns{gap:26px}.vac-unscheduled{display:block}.vac-scheduled{grid-template-columns:67px 1fr}.vac-plan-body{padding:15px}.vac-plan h3{font-size:15px}.vac-time{font-size:13px;padding:19px 7px}.vac-form-grid{gap:14px}.vac-field:has(input[name="Lugar"]),.vac-field:has(input[name="Depende de"]),.vac-field:has(input[name="Enlace"]){grid-column:1/-1}.vac-dialog{padding:21px}.vac-section-heading h2{font-size:22px}.vac-foot{gap:16px;line-height:1.6}.vac-form-grid input{min-width:0}.vac-hero .vac-intro{font-size:12px}}
+/* Desktop density: leave the mobile layout and touch targets unchanged. */
+@media screen and (min-width:1051px){
+  body:has(.vac-app) .sidebar{width:200px;padding:24px 14px 14px}
+  body:has(.vac-app) .workspace{margin-left:200px}
+  body:has(.vac-app) .brand{padding:0 16px 22px}
+  body:has(.vac-app) .brand-mark{font-size:38px}
+  body:has(.vac-app) .brand-caption{font-size:10px;margin-top:10px}
+  body:has(.vac-app) .nav-button{font-size:13px;min-height:38px;padding:8px 13px;margin-bottom:3px;gap:10px}
+  body:has(.vac-app) .nav-button svg{width:17px;height:17px}
+  body:has(.vac-app) .identity{padding-top:14px;margin-top:14px}
+  body:has(.vac-app) .identity b{font-size:13px}
+  body:has(.vac-app) .identity small{font-size:11px}
+  body:has(.vac-app) .topbar{height:60px;padding-inline:24px}
+  body:has(.vac-app) .search-wrap input{font-size:13px;padding:8px 0}
+  body:has(.vac-app) .topbar .button{font-size:12px;min-height:34px;padding:8px 13px}
+  body:has(.vac-app) .topbar .icon-button{width:34px;height:34px}
+  body:has(.vac-app) .connection-strip{font-size:11px;padding:5px 24px}
+  body:has(.vac-app) .connection-strip button{font-size:11px}
+  main:has(.vac-app){max-width:1800px;padding:16px 24px 24px}
+  body:has(.vac-app) .page-footer{max-width:1800px;font-size:11px;padding:12px 24px}
+  .vac-app{max-width:none}
+  .vac-hero{padding:14px 20px;border-radius:15px;gap:20px}
+  .vac-hero .vac-eyebrow,.vac-section-heading .vac-eyebrow{display:none}
+  .vac-hero h1{font-size:28px;letter-spacing:-.8px;margin:4px 0 8px;max-width:none}
+  .vac-eyebrow{margin-bottom:4px;letter-spacing:1.1px}
+  .vac-dates{font-size:12px;margin-bottom:6px}
+  .vac-intro{font-size:12px;line-height:1.45;max-width:850px}
+  .vac-hero-actions{gap:9px;min-width:145px}
+  .vac-hero-actions .button{font-size:12px;min-height:34px;padding:8px 13px}
+  .vac-hero .text-button{font-size:11px}
+  .vac-toolbar{font-size:11px;margin:10px 0;gap:10px}
+  .vac-toolbar .text-button{font-size:11px}
+  .vac-days{gap:8px;padding-bottom:10px}
+  .vac-days button{min-height:54px;max-width:100px;padding:6px 8px;gap:1px;line-height:1.1;border-radius:10px}
+  .vac-days b{font-size:18px}
+  .vac-columns{gap:22px;margin-top:4px}
+  .vac-section-heading{padding-bottom:8px;margin-bottom:8px}
+  .vac-section-heading h2{font-size:18px;letter-spacing:-.3px}
+  .vac-section-heading>span{font-size:10px}
+  .vac-date-title{font-size:11px;margin:12px 0 6px}
+  .vac-hint{font-size:11px;line-height:1.4;margin-bottom:9px}
+  .vac-plan{border-radius:10px;margin-bottom:8px}
+  .vac-plan-body{padding:9px 12px}
+  .vac-plan-meta{gap:8px;margin-bottom:4px}
+  .vac-status{padding:2px 7px}
+  .vac-plan h3{font-size:13px;line-height:1.35;margin-bottom:4px}
+  .vac-plan p{font-size:11px;line-height:1.4;margin:3px 0}
+  .vac-plan p.vac-dependency{padding:5px 7px;margin:7px 0}
+  .vac-plan-bottom{font-size:10px;margin-top:4px;gap:9px}
+  .vac-plan-bottom .text-button{font-size:10px;min-height:22px;padding:3px 0}
+  .vac-scheduled{grid-template-columns:65px 1fr}
+  .vac-scheduled .vac-plan-body{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px}
+  .vac-scheduled .vac-plan-meta,.vac-scheduled h3,.vac-scheduled .vac-dependency{grid-column:1/-1}
+  .vac-scheduled .vac-location{grid-column:1;grid-row:3}
+  .vac-scheduled .vac-plan-bottom{grid-column:2;grid-row:3;margin-top:0}
+  .vac-time{font-size:12px;padding:13px 7px}
+  .vac-time small{margin-top:5px}
+  .vac-free{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding:4px 11px;font-size:11px;margin-bottom:8px;border-radius:9px}
+  .vac-free .text-button{font-size:10px;margin:0;min-height:26px}
+  .vac-foot{font-size:10px;margin-top:18px}
+  .vac-dialog{padding:16px 20px;width:min(680px,calc(100% - 32px))}
+  .vac-editor-head .icon-button{width:34px;height:34px;font-size:22px}
+  .vac-dialog h2{font-size:22px;margin:4px 0 15px;letter-spacing:-.6px}
+  .vac-form-grid{gap:9px 14px}
+  .vac-field{font-size:11px;gap:4px}
+  .vac-field input,.vac-field select,.vac-field textarea{font-size:12px;min-height:34px;padding:7px 10px}
+  .vac-field textarea{height:76px}
+  .vac-form-help,.vac-references{margin-top:12px;line-height:1.45}
+  .vac-editor-actions{gap:10px;margin-top:12px}
+  .vac-editor-actions .button{font-size:12px;min-height:34px;padding:8px 13px}
+}

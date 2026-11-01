@@ -4,6 +4,10 @@
 
 Interfaz adaptable a móvil y ordenador para capturar en Incoming y consultar el sistema personal existente en Google Sheets.
 
+## Cloudflare · 1 de noviembre de 2026
+
+Acceso principal: [hub.arcdev.app](https://hub.arcdev.app/). Conserva la conexión y datos originales e incorpora Apps para abrir Watch Tracker y FlowGrid dentro del hub o por separado. Cada app mantiene su propia sesión. Construcción y recuperación en [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). El acceso anterior de GitHub Pages continúa disponible.
+
 ## Estado · 5 de octubre de 2026
 
 Repositorio público. [HUB en GitHub Pages](https://hexabor.github.io/arc-personal-hub/) publicado mediante Actions y conectado con la cuenta del propietario. Reautorización, lectura y captura real verificadas desde el navegador. La web privada anterior también carga tras asociar el proyecto estándar y conserva su URL.

@@ -10,6 +10,9 @@ vac_js = (root/'dist/vacaciones.js').read_text(encoding='utf-8')
 google = shell.replace('<link rel="stylesheet" href="styles.css">', '<style>'+css+'</style>')
 google = google.replace('<link rel="stylesheet" href="vacaciones.css">','<style>'+vac_css+'</style>')
 google = google.replace('<script src="vacaciones.js"></script>','<script>'+vac_js+'</script>')
+google = google.replace('<link rel="stylesheet" href="apps.css">', '<style>'+(root/'pages/apps.css').read_text(encoding='utf-8')+'</style>')
+google = google.replace('<script src="apps.js"></script>', '')
+google = google.replace('href="mapa-fases.html"', 'href="https://hub.arcdev.app/mapa-fases.html"')
 google = google.replace('<script src="app.js"></script>', '<script>'+app+'</script>')
 assert 'HUB_SNAPSHOT =' not in google
 (root/'google/Index.html').write_text(google, encoding='utf-8')
@@ -22,6 +25,8 @@ if '--pages' in sys.argv:
     for name in ['app.js','styles.css','vacaciones.js','vacaciones.css']:
         shutil.copyfile(root/'dist'/name, destination/name)
     shutil.copyfile(root/'pages/google-backend.js', destination/'google-backend.js')
+    for name in ['apps.js','apps.css']:
+        shutil.copyfile(root/'pages'/name, destination/name)
     (destination/'config.js').write_text('window.ARC_PUBLIC_CONFIG = '+json.dumps(config)+';\n')
     shell = shell.replace('<script src="app.js"></script>', '<script src="config.js"></script><script src="google-backend.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="app.js"></script>')
     (destination/'index.html').write_text(shell, encoding='utf-8')

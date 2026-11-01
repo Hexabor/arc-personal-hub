@@ -6,7 +6,7 @@ let hooks;
 const browser={document:{getElementById:element,querySelectorAll:()=>[],addEventListener:(t,cb)=>events[t]=cb,activeElement:null,title:''},console,Intl,Date,URL,setTimeout:()=>1,clearTimeout(){},setInterval(){},localStorage:{getItem:()=>null,setItem(){}},navigator:{},window:null};
 browser.window={addEventListener(){},scrollTo(){},__ARC_TEST_HOOK__:h=>hooks=h};
 vm.createContext(browser);vm.runInContext(fs.readFileSync(root+'/tests/fixtures/preview-data.js','utf8'),browser);vm.runInContext(fs.readFileSync(root+'/dist/app.js','utf8'),browser);
-assert.ok(element('main').innerHTML.includes('Que no se te escape.'));
+assert.ok(element('main').innerHTML.includes('<details class="capture-card" id="capture-panel">'));
 assert.ok(element('connection-strip').innerHTML.includes('Vista previa'));
 assert.ok(element('main').innerHTML.includes('Copiar para ChatGPT'));
 assert.equal(hooks.dateISO(46271),'2026-09-06');assert.equal(hooks.dateISO('24/08/2026'),'2026-08-24');

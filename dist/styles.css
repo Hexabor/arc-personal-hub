@@ -17,3 +17,14 @@ dialog{border:0;border-radius:17px;width:min(620px,calc(100% - 32px));max-height
 .task-toolbar select{min-width:190px}.task-item{display:flex;align-items:center;border-bottom:1px solid #e7e9e3}.task-item .task-row{flex:1;min-width:0;border:0}.move-controls{display:flex;flex-direction:column;gap:2px;padding:8px}.move-controls button{font-size:21px;min-width:40px;min-height:40px}.move-controls button:disabled{opacity:.25;cursor:default}
 .task-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}.task-edit-grid .wide{grid-column:1/-1}.task-edit-grid textarea{resize:vertical;min-height:100px}#task-edit-status{white-space:pre-wrap;overflow-wrap:anywhere;color:#8d5019}#detail-dialog{max-height:90dvh;overflow:auto}#detail-content .pill{white-space:normal}.task-sub .pill{font-size:11px}.task-label{min-width:0;overflow-wrap:anywhere}
 @media(max-width:600px){.task-edit-grid{grid-template-columns:1fr}.task-toolbar{gap:12px}.task-toolbar label{flex:1}.task-toolbar select{min-width:0}.move-controls{padding:4px}.move-controls button{min-width:36px;min-height:40px}}
+
+/* Capture is a secondary, closed-by-default action. */
+.home-top{grid-template-columns:minmax(0,1fr)}
+.capture-card{display:block;padding:0;margin:0 0 16px;border:0;border-radius:12px;background:none;box-shadow:none}
+.capture-card>summary{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:8px 12px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--muted);font-size:14px;font-weight:550;list-style:none;cursor:pointer;user-select:none}
+.capture-card>summary::-webkit-details-marker{display:none}.capture-card>summary::marker{content:''}.capture-card>summary:focus-visible{outline:3px solid #5680ed;outline-offset:3px}.capture-card>summary:hover{color:var(--ink);border-color:#b9c5d4}
+.capture-card>summary svg{width:17px;height:17px}.capture-chevron{display:flex}.capture-card[open] .capture-chevron{transform:rotate(90deg)}
+.capture-card[open]{padding:16px;border:1px solid var(--line);background:var(--white)}.capture-card[open]>summary{margin-bottom:14px;border-color:transparent;padding-left:0;color:var(--ink)}
+.capture-card .capture-caption,.capture-meta span,.capture-footnote{color:var(--muted)}.capture-card textarea{border-color:var(--line);background:var(--paper);color:var(--ink);min-height:96px}.capture-actions .text-button{color:var(--blue)}
+.top-capture{min-height:38px;padding:8px 12px;font-weight:550;color:var(--muted)}
+@media(max-width:650px){.capture-card{margin-bottom:14px}.capture-card>summary{min-height:44px}.capture-card[open]{padding:14px}.capture-card .capture-caption{font-size:13px}.capture-actions{flex-wrap:wrap}.capture-actions .text-button{font-size:13px}}

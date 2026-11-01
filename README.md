@@ -2,7 +2,7 @@
 
 [Árbol de fases del HUB](https://hexabor.github.io/arc-personal-hub/mapa-fases.html) · [Fuentes y mantenimiento](docs/ARBOL-DE-FASES.md). La construcción y la aceptación real aparecen por separado; publicar el árbol no acepta las fases.
 
-Interfaz adaptable a móvil y ordenador para capturar en Incoming y consultar el sistema personal existente en Google Sheets.
+Interfaz adaptable a móvil y ordenador para consultar y seguir el sistema personal existente en Google Sheets, con captura puntual en un desplegable cerrado por defecto.
 
 ## Cloudflare · 1 de noviembre de 2026
 

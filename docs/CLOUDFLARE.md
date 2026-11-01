@@ -10,6 +10,8 @@ En Cloudflare, abrir el Worker → New deployment y subir todos los archivos de 
 
 ## Aplicaciones
 
+Inicio prioriza consulta y seguimiento. La captura es un botón compacto cerrado por defecto; conserva el borrador al plegarse y se abre también desde el botón superior o la tecla N. La barra inferior móvil empieza por Inicio. Las actualizaciones de datos conservan la apertura elegida; volver a Inicio o guardar correctamente la cierra.
+
 `pages/apps.js` define el catálogo cerrado de apps: Watch Tracker y FlowGrid. Se cargan bajo sus direcciones originales; no se duplican datos ni se comparten tokens entre ventanas o apps. Las rutas `#apps`, `#apps/watch` y `#apps/flowgrid` permiten entrada directa.
 
 Cada marco se crea solo la primera vez que se abre y se conserva al navegar por el hub y en sus actualizaciones de lectura. Recargar la página inicia una sesión nueva según las reglas originales de cada app. Cada app mantiene su cierre de sesión propio.

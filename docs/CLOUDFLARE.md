@@ -41,3 +41,7 @@ El hub anterior sigue en https://hexabor.github.io/arc-personal-hub/. La migraci
 ## Validación
 
 Ejecutar `node tests/logic.cjs`, `node tests/pages.cjs`, `node tests/task-edits.cjs`, `node tests/task-ui.cjs`, `node tests/vacaciones.cjs` y `node tests/apps.cjs`. La aceptación viva y sus límites se registran por separado en `cloudflare/evidence/`, excluido de Git.
+
+## Playtracker · 02/11/2026
+
+Añadido al catálogo, Inicio y lateral en Ocio y viajes. Su enlace abre https://arc-playtracker.j-arc-main.chatgpt.site/ en una pestaña propia; usa su acceso privado de ChatGPT y su almacenamiento D1. No se incrusta ni comparte tokens. Watch Tracker y FlowGrid conservan sus marcos. La primera versión comienza vacía por decisión de Arc, sin importación de Notion. Recuperación del hub: versión anterior d207c503.

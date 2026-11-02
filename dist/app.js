@@ -65,7 +65,7 @@ function moduleGroups(){
  add('personas',{view:'personas',icon:'people',name:'Personas',description:'Vínculos y contexto que quieres recordar.'});
  add('personas',{view:'memoria',icon:'history',name:'Memoria',description:'Lo vivido, planes, recomendaciones e ideas.'});
  add('ocio',{view:'vacaciones',icon:'plane',name:'Vacaciones',description:'Agenda y planes de viaje.'});
- for(const item of window.ARC_APPS?.catalog||[])add(item.id==='watch'?'ocio':'gestion',{app:item.id,...(window.location?.hostname==='hexabor.github.io'?{url:'https://hub.arcdev.app/#apps/'+item.id}:{}),icon:item.id==='watch'?'book':'grid',name:item.name,description:item.description});
+ for(const item of window.ARC_APPS?.catalog||[])add(['watch','play'].includes(item.id)?'ocio':'gestion',{app:item.id,...(item.external?{url:item.url}:window.location?.hostname==='hexabor.github.io'?{url:'https://hub.arcdev.app/#apps/'+item.id}:{}),icon:item.id==='watch'?'book':'grid',name:item.name,description:item.description});
  for(const m of data?.modules||[]){
   const domain=fold(m.Dominio),id=m['Módulo ID'];
   if(id==='MOD-CORE'||domain==='nucleo personal'||/vacaciones/.test(domain))continue;

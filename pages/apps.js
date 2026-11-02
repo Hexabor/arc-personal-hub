@@ -3,12 +3,13 @@
   'use strict';
   const catalog = Object.freeze([
     { id: 'watch', name: 'Watch Tracker', description: 'Tu biblioteca de series y películas.', url: 'https://watch.arcdev.app/', color: 'sage', mark: '▤' },
+    { id: 'play', name: 'Playtracker', description: 'Tus juegos, sesiones y recuerdos de cada partida.', url: 'https://arc-playtracker.j-arc-main.chatgpt.site/', color: 'sage', mark: '♧', external: true },
     { id: 'flowgrid', name: 'FlowGrid', description: 'Tus cuentas y movimientos, a mano.', url: 'https://flowgrid.arcdev.app/', color: 'sand', mark: '▦' }
   ]);
   let root, selected = '', initialized = false;
   const frames = new Map();
   function choose(id, updateHash = true) {
-    const app = catalog.find(item => item.id === id);
+    const app = catalog.find(item => item.id === id && !item.external);
     selected = app?.id || '';
     root.querySelector('.apps-catalog').hidden = !!app;
     root.querySelector('.apps-intro').hidden = !!app;
@@ -38,7 +39,7 @@
     root.hidden = false;
     if (!initialized) {
       root.innerHTML = `<div class="apps-intro"><div class="eyebrow">Tu espacio personal</div><h1>Tus apps</h1><p class="subtitle">Elige cómo entrar. Tus datos son los mismos.</p></div>
-        <div class="apps-catalog">${catalog.map(app => `<article class="app-card ${app.color}"><span class="app-mark" aria-hidden="true">${app.mark}</span><h2>${app.name}</h2><p>${app.description}</p><div class="app-card-actions"><button class="button dark" data-app="${app.id}">Usar en el hub</button><a class="button light" href="${app.url}" target="_blank" rel="noopener noreferrer">Abrir aparte ↗</a></div></article>`).join('')}</div>
+        <div class="apps-catalog">${catalog.map(app => `<article class="app-card ${app.color}"><span class="app-mark" aria-hidden="true">${app.mark}</span><h2>${app.name}</h2><p>${app.description}</p><div class="app-card-actions">${app.external ? `<a class="button dark" href="${app.url}" target="_blank" rel="noopener noreferrer">Abrir Playtracker ↗</a>` : `<button class="button dark" data-app="${app.id}">Usar en el hub</button><a class="button light" href="${app.url}" target="_blank" rel="noopener noreferrer">Abrir aparte ↗</a>`}</div></article>`).join('')}</div>
         <div class="apps-toolbar" hidden><button class="button light" data-app-back>← Apps</button><h1 class="apps-current"></h1><a class="button light apps-open" target="_blank" rel="noopener noreferrer">Abrir aparte ↗</a></div>
         <div class="apps-frames"></div><p class="apps-session-note">Cada aplicación conserva su propia sesión. Puedes volver a ella desde el menú Apps sin recargarla.</p>`;
       root.addEventListener('click', event => {

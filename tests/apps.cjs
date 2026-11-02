@@ -17,3 +17,5 @@ click('flowgrid');assert.equal(created.length,2);assert.equal(watch.hidden,true)
 location.hash='#apps/watch';window.ARC_APPS.show(root);assert.equal(watch.hidden,false);assert.equal(created[1].hidden,true);
 location.hash='#apps/https://untrusted.invalid';window.ARC_APPS.show(root);assert.equal(created.length,2);assert.ok(created.every(frame=>frame.hidden));
 console.log('PASS: app selection is lazy and allowlisted; navigation/refresh preserve sessions and drafts; direct routes work without token sharing.');
+
+const play=window.ARC_APPS.catalog.find(x=>x.id==='play');assert.equal(play.external,true);assert.equal(play.url,'https://arc-playtracker.j-arc-main.chatgpt.site/');assert.ok(root.innerHTML.includes('Abrir Playtracker ↗'));assert.ok(!root.innerHTML.includes('data-app="play"'));location.hash='#apps/play';window.ARC_APPS.show(root);assert.equal(created.length,2,'Playtracker opens separately, never as an unauthenticated frame');console.log('PASS: Playtracker external private entry.');

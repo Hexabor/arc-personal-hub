@@ -265,3 +265,5 @@ main,main:has(.home-directory){padding:23px;max-width:1510px}
  .filters select,input,textarea{font-size:16px}
 }
 @media(max-width:350px){.home-directory{grid-template-columns:minmax(0,1fr)}.module-card-name{font-size:11px}.module-card-icon:not(:has(img)){display:none}.module-card:not(:has(img)){grid-template-columns:minmax(0,1fr) 10px}.page-heading h1,.home-heading h1{font-size:21px}}
+
+.person-facts{display:grid;gap:3px;color:var(--muted);font-size:13px;margin-bottom:9px}.person-card p b{font-weight:600}

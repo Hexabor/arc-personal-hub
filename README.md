@@ -6,6 +6,8 @@ Interfaz adaptable a móvil y ordenador para consultar y seguir el sistema perso
 
 El inicio reúne las secciones del núcleo, las apps y los módulos registrados en tarjetas individuales. «Que no se te escape» queda plegado encima del directorio. Las tarjetas de apps abren su vista dentro del hub; los módulos pendientes de integración conservan el acceso a su hoja.
 
+La portada prioriza mostrar la mayor cantidad de información útil sin scroll: tarjetas horizontales compactas, secciones visibles por ámbito, `›` para destinos internos y `↗` para enlaces que abren otra pestaña. Los módulos sin destino o pendientes de conexión se muestran atenuados; sus descripciones siguen disponibles al pasar el cursor y en el nombre accesible.
+
 ## Cloudflare · 1 de noviembre de 2026
 
 Acceso principal: [hub.arcdev.app](https://hub.arcdev.app/). Conserva la conexión y datos originales e incorpora Apps para abrir Watch Tracker y FlowGrid dentro del hub o por separado. Cada app mantiene su propia sesión. Construcción y recuperación en [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). El acceso anterior de GitHub Pages continúa disponible.

@@ -48,28 +48,32 @@ function groupRows(){const groups=new Map();for(const t of sortedTasks(taskList(
 function projectCard(p){const count=taskList().filter(t=>t['Proyecto ID']===p.ID).length;return `<article class="project-card"><div class="project-top"><span class="eyebrow">${esc(p.Área||'Proyecto')}</span><span class="pill ${p.Estado==='Activo'?'blue':p.Estado==='Completado'?'green':''}">${esc(p.Estado||'Sin estado')}</span></div><button data-detail="projects|${esc(p.ID)}"><h3>${esc(p.Nombre)}</h3><p>${esc(clip(p.Objetivo,155))}</p></button><div class="project-bottom"><span>${count} ${count===1?'tarea abierta':'tareas abiertas'}</span><button class="text-button" data-project="${esc(p.ID)}">Ver tareas</button></div></article>`;}
 function personCard(p){return `<button class="person-card" data-detail="people|${esc(p.ID)}"><div class="person-top"><span class="person-avatar">${esc((p.Nombre||'?').split(' ').map(x=>x[0]).slice(0,2).join(''))}</span><div><h3>${esc(p.Nombre)}</h3><span class="pill">${esc(p['Grupo / ámbito']||'Personal')}</span></div></div><p>${esc(p['Temas abiertos']||p['Notas / contexto']||'Aún sin contexto registrado.')}</p></button>`;}
 function homeModules(){
- const cards=[
-  {view:'tareas',icon:'tasks',name:'Tareas',description:'Tus próximas acciones, a tu ritmo.',detail:taskList().length+(taskList().length===1?' abierta':' abiertas')},
-  {view:'proyectos',icon:'projects',name:'Proyectos',description:'Objetivos y planes que van tomando forma.',detail:data.projects.filter(p=>p.Estado==='Activo').length+' en marcha'},
-  {view:'personas',icon:'people',name:'Personas',description:'Vínculos y contexto que quieres recordar.'},
-  {view:'memoria',icon:'history',name:'Memoria',description:'Lo vivido, recomendaciones e ideas.'},
-  {view:'incoming',icon:'inbox',name:'Incoming',description:'Lo que has capturado para ordenar después.',detail:data.incoming.length?data.incoming.length+' por consolidar':'Al día'},
-  {view:'vacaciones',icon:'plane',name:'Vacaciones',description:'Viajes, agenda y planes para tus días libres.'}
- ];
- for(const item of window.ARC_APPS?.catalog||[])cards.push({app:item.id,...(window.location?.hostname==='hexabor.github.io'?{url:'https://hub.arcdev.app/#apps/'+item.id,detail:'Abrir en el hub'}:{}),icon:item.id==='watch'?'book':'grid',name:item.name,description:item.description});
+ const groups=[{id:'organizacion',name:'Organización',cards:[]},{id:'personas',name:'Personas y memoria',cards:[]},{id:'ocio',name:'Ocio y viajes',cards:[]},{id:'bienestar',name:'Salud y bienestar',cards:[]},{id:'gestion',name:'Finanzas y gestión',cards:[]}];
+ const add=(group,card)=>groups.find(g=>g.id===group).cards.push(card);
+ add('organizacion',{view:'tareas',icon:'tasks',name:'Tareas',description:'Tus próximas acciones.',detail:String(taskList().length)});
+ add('organizacion',{view:'proyectos',icon:'projects',name:'Proyectos',description:'Objetivos y planes en marcha.',detail:String(data.projects.filter(p=>p.Estado==='Activo').length)});
+ add('organizacion',{view:'incoming',icon:'inbox',name:'Incoming',description:'Entradas por consolidar.',detail:String(data.incoming.length)});
+ add('personas',{view:'personas',icon:'people',name:'Personas',description:'Vínculos y contexto que quieres recordar.'});
+ add('personas',{view:'memoria',icon:'history',name:'Memoria',description:'Lo vivido, recomendaciones e ideas.'});
+ add('ocio',{view:'vacaciones',icon:'plane',name:'Vacaciones',description:'Agenda y planes de viaje.'});
+ for(const item of window.ARC_APPS?.catalog||[])add(item.id==='watch'?'ocio':'gestion',{app:item.id,...(window.location?.hostname==='hexabor.github.io'?{url:'https://hub.arcdev.app/#apps/'+item.id}:{}),icon:item.id==='watch'?'book':'grid',name:item.name,description:item.description});
  for(const m of data.modules||[]){
   const domain=fold(m.Dominio),id=m['Módulo ID'];
   if(id==='MOD-CORE'||domain==='nucleo personal'||/vacaciones/.test(domain))continue;
-  const url=safeURL(m.URL);if(url==='#')continue;
-  cards.push({url,icon:domain.includes('salud')?'leaf':'grid',name:m.Dominio,description:m['Qué guarda']||m['Backend canónico']||'Consultar este módulo.',detail:'Abrir hoja'});
+  const group=/salud|entrenamiento|bienestar/.test(domain)?'bienestar':/concierto|festival|ocio|viaje/.test(domain)?'ocio':'gestion';
+  const url=safeURL(m.URL),placeholder=url==='#'||/pendiente|preparacion|previsto|proximamente|inactivo/.test(fold(m.Estado));
+  add(group,{url:placeholder?'':url,placeholder,icon:domain.includes('salud')?'leaf':'grid',name:/intercambio.*cex/.test(domain)?'Personal–CeX':m.Dominio,description:m['Qué guarda']||m['Backend canónico']||'Consultar este módulo.'});
  }
- return '<div class="module-grid">'+cards.map(m=>{
-  const attrs=m.url?'href="'+esc(m.url)+'" target="_blank" rel="noopener noreferrer"':m.app?'data-home-app="'+esc(m.app)+'"':'data-view="'+m.view+'"';
-  const tag=m.url?'a':'button';
-  return '<'+tag+' class="module-card" '+attrs+'><span class="module-card-top"><span class="tile-icon">'+icon(m.icon)+'</span><span class="module-card-arrow">'+icon('arrow')+'</span></span><h3>'+esc(m.name)+'</h3><p>'+esc(m.description)+'</p><span class="module-card-detail">'+esc(m.detail||(m.url?'Abrir hoja':'Abrir en el hub'))+'</span></'+tag+'>';
- }).join('')+'</div>';
+ const card=m=>{
+  const suffix=m.placeholder?'Pendiente de conectar':m.url?'Abre en otra pestaña':'Abre dentro del hub';
+  const label=m.name+'. '+(m.description||'')+' '+suffix;
+  const attrs=m.placeholder?'aria-disabled="true"':m.url?'href="'+esc(m.url)+'" target="_blank" rel="noopener noreferrer"':m.app?'data-home-app="'+esc(m.app)+'"':'data-view="'+m.view+'"';
+  const tag=m.placeholder?'span':m.url?'a':'button';
+  return '<'+tag+' class="module-card '+(m.placeholder?'is-placeholder':m.url?'is-external':'is-internal')+'" '+attrs+' title="'+esc(label)+'" aria-label="'+esc(label)+'"><span class="module-card-icon">'+icon(m.icon)+'</span><span class="module-card-name">'+esc(m.name)+'</span><span class="module-card-count">'+esc(m.detail||'')+'</span><span class="module-card-arrow" aria-hidden="true">'+(m.url?'↗':'›')+'</span></'+tag+'>';
+ };
+ return '<div class="home-directory">'+groups.filter(g=>g.cards.length).map(g=>'<section class="module-section" aria-labelledby="module-'+g.id+'"><div class="module-section-heading"><h2 id="module-'+g.id+'">'+g.name+'</h2><span>'+g.cards.length+'</span></div><div class="module-grid">'+g.cards.map(card).join('')+'</div></section>').join('')+'</div>';
 }
-function home(){return heading('Tu punto de partida')+capture()+'<section aria-labelledby="home-modules-title"><div class="section-heading"><h2 id="home-modules-title">Tus módulos</h2></div>'+homeModules()+'</section>';}
+function home(){return '<div class="home-heading">'+heading('Tu punto de partida')+capture()+'</div>'+homeModules();}
 
 function matchesTask(t,f=filter){if(!openTask(t))return false;if(f.project&&t['Proyecto ID']!==f.project)return false;const ctx=t['Contexto ejecución'];if(f.context&&ctx!==f.context&&ctx!=='Cualquier sitio'&&!(f.unknown&&!ctx))return false;const mins=t['Tiempo estimado (min)'];if(f.minutes&&(!(typeof mins==='number'&&mins>0)?!f.unknown:mins>Number(f.minutes)))return false;const energy={Baja:1,Media:2,Alta:3};if(f.energy&&(!(t.Concentración in energy)?!f.unknown:energy[t.Concentración]>energy[f.energy]))return false;return true;}
 function taskRows(ts,role='tasks'){return ts.map(t=>`<div class="task-item"><button class="task-row" data-detail="${role}|${esc(t.ID)}"><span class="task-icon">${icon('tasks')}</span><span class="task-label"><b>${esc(t.Tarea)}</b><span class="task-sub">${reviewBadge(t)}<span>${esc(t['Proyecto']||t.Área||'Sin proyecto')}</span><span>${esc(t['Contexto ejecución']||'Contexto sin definir')}</span>${t['Tiempo estimado (min)']?`<span>${esc(t['Tiempo estimado (min)'])} min</span>`:''}${overdue(t)?'<span class="pill amber">Fecha por revisar</span>':''}</span></span><span class="task-date">${t['Fecha objetivo']?esc(niceDate(t['Fecha objetivo'])):''}</span></button>${data.taskEditing&&live&&taskSort==='manual'&&taskScope==='active'?`<span class="move-controls"><button class="text-button" data-move-task="${esc(t.ID)}|up" aria-label="Subir ${esc(t.Tarea)}" ${busy||ts.indexOf(t)===0?'disabled':''}>↑</button><button class="text-button" data-move-task="${esc(t.ID)}|down" aria-label="Bajar ${esc(t.Tarea)}" ${busy||ts.indexOf(t)===ts.length-1?'disabled':''}>↓</button></span>`:''}</div>`).join('');}

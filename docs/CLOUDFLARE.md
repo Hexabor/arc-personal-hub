@@ -12,6 +12,8 @@ En Cloudflare, abrir el Worker → New deployment y subir todos los archivos de 
 
 Inicio presenta una tarjeta por módulo: Tareas, Proyectos, Personas, Memoria, Incoming, Vacaciones, las apps del catálogo y los destinos adicionales del registro privado. El núcleo se representa con sus secciones y los viajes con Vacaciones, sin duplicar sus hojas como tarjetas. Las apps abren directamente su vista integrada; los módulos que aún no tienen vista propia abren su hoja actual. Añadir una app al catálogo o un módulo al registro lo incorpora al inicio.
 
+La portada aplica la preferencia de Arc de mostrar la mayor cantidad de información útil sin scroll: filas de 44 px agrupadas por Organización, Personas y memoria, Ocio y viajes, Salud y bienestar y Finanzas y gestión. Las secciones llevan fondo, borde y cabecera propios. `›` indica navegación dentro del Hub y `↗`, apertura de otra pestaña. Sin destino o con estado pendiente/inactivo, el módulo aparece atenuado y sin acción. Las descripciones completas se conservan en el título y nombre accesible de cada tarjeta.
+
 «Que no se te escape» es un desplegable compacto cerrado por defecto; conserva el borrador al plegarse y se abre también desde Capturar o la tecla N. La barra inferior móvil empieza por Inicio. Las actualizaciones de datos conservan la apertura elegida; volver a Inicio o guardar correctamente la cierra. El diseño de tarjetas del inicio se publica también en el acceso anterior de GitHub Pages.
 
 `pages/apps.js` define el catálogo cerrado de apps: Watch Tracker y FlowGrid. Se cargan bajo sus direcciones originales; no se duplican datos ni se comparten tokens entre ventanas o apps. Las rutas `#apps`, `#apps/watch` y `#apps/flowgrid` permiten entrada directa.

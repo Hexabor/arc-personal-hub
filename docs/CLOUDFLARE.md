@@ -16,6 +16,8 @@ Inicio presenta una tarjeta por módulo: Tareas, Proyectos, Personas, Memoria, I
 
 `pages/apps.js` define el catálogo cerrado de apps: Watch Tracker y FlowGrid. Se cargan bajo sus direcciones originales; no se duplican datos ni se comparten tokens entre ventanas o apps. Las rutas `#apps`, `#apps/watch` y `#apps/flowgrid` permiten entrada directa.
 
+Desde GitHub Pages, las tarjetas de apps llevan a su vista en `hub.arcdev.app`, el origen autorizado para incrustarlas. Los archivos de la nueva portada llevan una versión en su URL para renovar las copias guardadas en el navegador.
+
 Cada marco se crea solo la primera vez que se abre y se conserva al navegar por el hub y en sus actualizaciones de lectura. Recargar la página inicia una sesión nueva según las reglas originales de cada app. Cada app mantiene su cierre de sesión propio.
 
 Los marcos permiten scripts, origen original, formularios, diálogos, ventanas auxiliares y descargas para conservar las funciones existentes. No permiten que una app navegue la ventana del hub. El hub permite marcos solo desde las apps del catálogo y Google Identity Services; no puede ser incrustado a su vez por otra web.

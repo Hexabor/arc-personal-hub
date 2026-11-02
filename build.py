@@ -29,6 +29,8 @@ if '--pages' in sys.argv:
         shutil.copyfile(root/'pages'/name, destination/name)
     (destination/'config.js').write_text('window.ARC_PUBLIC_CONFIG = '+json.dumps(config)+';\n')
     shell = shell.replace('<script src="app.js"></script>', '<script src="config.js"></script><script src="google-backend.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="app.js"></script>')
+    for name in ['app.js','apps.js','styles.css']:
+        shell = shell.replace('"'+name+'"', '"'+name+'?v=20261102-modules"')
     (destination/'index.html').write_text(shell, encoding='utf-8')
     shutil.copyfile(root/'docs/mapa-fases.html', destination/'mapa-fases.html')
     shutil.copyfile(root/'docs/mapa-vacaciones.html', destination/'mapa-vacaciones.html')

@@ -15,6 +15,7 @@ google = google.replace('<script src="apps.js"></script>', '')
 google = google.replace('href="mapa-fases.html"', 'href="https://hub.arcdev.app/mapa-fases.html"')
 # HtmlService's inline script rewriting can treat a URL inside HTML markup as a
 # line comment. Escaped slashes preserve the JS string and the resulting link.
+google = google.replace('src="arc-hub-icon-', 'src="https://hub.arcdev.app/arc-hub-icon-')
 google_app = app.replace('https://', r'https:\/\/')
 google = google.replace('<script src="app.js"></script>', '<script>'+google_app+'</script>')
 assert 'HUB_SNAPSHOT =' not in google
@@ -33,7 +34,7 @@ if '--pages' in sys.argv:
     (destination/'config.js').write_text('window.ARC_PUBLIC_CONFIG = '+json.dumps(config)+';\n')
     shell = shell.replace('<script src="app.js"></script>', '<script src="config.js"></script><script src="google-backend.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="app.js"></script>')
     for name in ['app.js','apps.js','styles.css']:
-        shell = shell.replace('"'+name+'"', '"'+name+'?v=20261102-personas-cumples"')
+        shell = shell.replace('"'+name+'"', '"'+name+'?v=20261102-equilibrio"')
     (destination/'index.html').write_text(shell, encoding='utf-8')
     shutil.copyfile(root/'docs/mapa-fases.html', destination/'mapa-fases.html')
     shutil.copyfile(root/'docs/mapa-vacaciones.html', destination/'mapa-vacaciones.html')

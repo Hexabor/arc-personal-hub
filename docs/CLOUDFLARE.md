@@ -1,5 +1,15 @@
 # Hub personal en Cloudflare · 01/11/2026
 
+## Equilibrio · 02/11/2026
+
+Arc elige y autoriza aplicar la propuesta Equilibrio al Hub: esmeralda #228974, grafito #1C211E y oro suave #DDB84D, con selección amarilla y acabado satinado contenido en Inicio y Capturar. Contenido claro, lateral de 176 px, secciones sin paneles adicionales y tarjetas de 44 px; móvil con secciones apiladas y dos tarjetas por fila. Se retiran los rótulos «TU ESPACIO PERSONAL» y «TU ESPACIO» de la marca y cabeceras. La marca incorpora Órbita y los accesos a Watch Tracker, Playtracker y FlowGrid usan sus iconos aprobados.
+
+Se conservan las funciones reales de captura, los cinco recientes, los desplegables, las rutas de apps, los marcos existentes y la nueva vista de cumpleaños publicada en 86666cd4 (commit 8cead29). Inicio queda accesible y seleccionado en amarillo en el lateral; los filtros y pestañas seleccionados comparten el oro. Las fechas completas del cliente compartido se presentan como DD/MM/AAAA; el almacenamiento y los cálculos mantienen sus formatos originales.
+
+La paleta se aplica al marco y a los controles compartidos del Hub; los interiores de las apps enlazadas mantienen su diseño. No cambian hojas, datos, API, autenticación ni permisos. Recuperación de interfaz: Cloudflare 86666cd4. La caché de estilos y scripts usa la versión 20261102-equilibrio. Los tres PNG de módulos se copian al paquete público junto al icono de Hub ya existente. La vista local de comprobación usa solo datos sintéticos y queda en cloudflare/evidence, fuera del paquete público.
+
+Validación: construcción de Google y Cloudflare; comprobación de sintaxis; batería existente de lógica, transporte, edición, navegación, calendario, apps y cumpleaños. Revisión visual de escritorio y móvil, búsqueda, captura plegable, menú móvil e imágenes. La comprobación de un teléfono físico sigue pendiente.
+
 El hub se sirve en https://hub.arcdev.app/ con un Worker de archivos estáticos llamado `arc-personal-hub`. Conserva la API privada de Apps Script, el cliente Google existente y la hoja original. El cliente Google admite el origen nuevo y conserva https://hexabor.github.io para el acceso anterior. No se crearon credenciales ni un segundo escritor de datos.
 
 ## Construcción y publicación

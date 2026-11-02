@@ -4,7 +4,9 @@
 
 Aplicado el mockup aprobado: Inicio, los cinco últimos módulos abiertos y los desplegables, en ese orden. El orden compartido se conserva también en Más del móvil. La zona de opciones expandida del lateral usa gris #454B47, texto claro y esquinas inferiores de 8 px; la cabecera conserva el grafito y la selección continúa amarilla. Se mantienen las claves de recientes y desplegables, sus estados y las rutas existentes. No cambia el ancho de 176 px ni los datos, conexiones o backends.
 
-La caché usa 20261102-sidebar. Recuperación anterior: Cloudflare b59a6a28. Validación: sintaxis, navegación/memoria, apps y Google inline; comprobación del orden y fondo en navegador y contraste de archivos publicados con el paquete. No se envían capturas ni se editan registros personales durante la verificación.
+La caché usa 20261102-sidebar. Publicado en Cloudflare e142c5b5 desde 0df1522; recuperación anterior: b59a6a28. Los 23 recursos públicos coinciden byte por byte con el paquete. En el navegador se verifican el orden Inicio → recientes → secciones, el desplegable abierto, el fondo rgb(69,75,71), texto rgb(225,231,225) y los 176 px de ancho. Evidencia local excluida de Git: cloudflare/evidence/sidebar-publication.json.
+
+Validación: sintaxis, navegación/memoria, apps y Google inline; comprobación del orden y fondo en navegador y contraste de archivos publicados con el paquete. No se envían capturas ni se editan registros personales durante la verificación.
 
 ## Equilibrio · 02/11/2026
 

@@ -21,6 +21,7 @@ jobs:
       - run: node tests/vacaciones.cjs
       - run: node tests/apps.cjs
       - run: node tests/personas-birthdays.cjs
+      - run: node tests/personas-cards.cjs
       - run: node tests/navigation-memory.cjs
       - run: node tests/memory-edits.cjs
       - run: node tests/calendar-focus.cjs

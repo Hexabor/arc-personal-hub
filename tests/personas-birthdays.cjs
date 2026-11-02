@@ -38,7 +38,7 @@ const click=dataset=>events.click({target:{closest:()=>({dataset,hasAttribute:()
  await click({view:'personas'});let html=element('main').innerHTML;
  assert.match(html,/id="people-tab-upcoming" aria-selected="true"/);assert.match(html,/Cumple 46 años/);assert.match(html,/04\/11/);assert.ok(!html.includes('/2000'),'Annual birthday label must never show a surrogate year');assert.match(html,/Edad sin confirmar/);assert.ok(html.indexOf('Persona actual')<html.indexOf('Otra persona'));
  await click({peopleScope:'recent'});html=element('main').innerHTML;assert.match(html,/Cumplió 45 años/);assert.ok(html.indexOf('Otra persona')<html.indexOf('Persona actual'));
- await click({peopleScope:'cards'});assert.match(element('main').innerHTML,/class="person-card"/);
+ await click({peopleScope:'cards'});assert.match(element('main').innerHTML,/class="person-card(?: |")/);
  await click({view:'inicio'});await click({view:'personas'});assert.match(element('main').innerHTML,/id="people-tab-upcoming" aria-selected="true"/);
  assert.equal(rows[0]['Fecha del hecho'],'1980-11-04','Views must not mutate source records');
  if(process.env.ARC_PRIVATE_BIRTHDAYS){const privateRows=JSON.parse(fs.readFileSync(process.env.ARC_PRIVATE_BIRTHDAYS,'utf8')),actual=hooks.birthdayRecords([...privateRows,...privateRows]);assert.equal(actual.length,67);assert.equal(actual.filter(x=>x.year===null).length,13);for(const scope of ['upcoming','recent']){const timeline=hooks.birthdayTimeline(actual,scope,'2026-11-02');assert.ok(timeline.every((x,i)=>!i||x.days>=timeline[i-1].days));assert.equal(timeline.filter(x=>x.age===null).length,13);}console.log('PASS: private read-only sample: 67 unique birthdays; 54 ages and 13 unknown years.');}

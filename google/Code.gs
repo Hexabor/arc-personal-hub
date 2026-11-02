@@ -76,7 +76,7 @@ function readRows_(book, name, system, schemaName) {
 function getHubData() {
   assertOwner_();
   const book = SpreadsheetApp.openById(HUB_CORE_ID), system = readSystem_(book), modules = checkCore_(book,system);
-  const sources = {tasks:system.source_tasks_active, projects:system.source_projects, people:system.source_people, incoming:system.source_incoming, history:system.source_register, recommendations:system.source_recommendations, criteria:system.source_personal_criteria, ideas:system.source_ideas, dates:system.source_dates, summary:system.source_summary};
+  const sources = {tasks:system.source_tasks_active, projects:system.source_projects, people:system.source_people, gifts:system.source_gifts, incoming:system.source_incoming, history:system.source_register, recommendations:system.source_recommendations, criteria:system.source_personal_criteria, ideas:system.source_ideas, dates:system.source_dates, summary:system.source_summary};
   const result = {mode:'live',version:HUB_RELEASE,fetchedAt:new Date().toISOString(),timezone:book.getSpreadsheetTimeZone(),sheetUrl:book.getUrl(),tabs:{},modules};
   result.tabs.modules=book.getSheetByName(String(system.module_registry)).getSheetId();
   Object.keys(sources).forEach(role=>{

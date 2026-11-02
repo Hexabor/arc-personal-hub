@@ -1,5 +1,11 @@
 # Hub personal en Cloudflare · 01/11/2026
 
+## Ajuste del lateral · 02/11/2026
+
+Aplicado el mockup aprobado: Inicio, los cinco últimos módulos abiertos y los desplegables, en ese orden. El orden compartido se conserva también en Más del móvil. La zona de opciones expandida del lateral usa gris #454B47, texto claro y esquinas inferiores de 8 px; la cabecera conserva el grafito y la selección continúa amarilla. Se mantienen las claves de recientes y desplegables, sus estados y las rutas existentes. No cambia el ancho de 176 px ni los datos, conexiones o backends.
+
+La caché usa 20261102-sidebar. Recuperación anterior: Cloudflare b59a6a28. Validación: sintaxis, navegación/memoria, apps y Google inline; comprobación del orden y fondo en navegador y contraste de archivos publicados con el paquete. No se envían capturas ni se editan registros personales durante la verificación.
+
 ## Equilibrio · 02/11/2026
 
 Arc elige y autoriza aplicar la propuesta Equilibrio al Hub: esmeralda #228974, grafito #1C211E y oro suave #DDB84D, con selección amarilla y acabado satinado contenido en Inicio y Capturar. Contenido claro, lateral de 176 px, secciones sin paneles adicionales y tarjetas de 44 px; móvil con secciones apiladas y dos tarjetas por fila. Se retiran los rótulos «TU ESPACIO PERSONAL» y «TU ESPACIO» de la marca y cabeceras. La marca incorpora Órbita y los accesos a Watch Tracker, Playtracker y FlowGrid usan sus iconos aprobados.

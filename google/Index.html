@@ -145,6 +145,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .nav-group.has-active>summary,.nav-group.has-active>summary:hover{background:var(--gold);color:var(--ink)}
 .nav-group>summary:focus-visible{outline:3px solid var(--emerald)}
 .nav-group-modules{padding:4px 0 4px 7px}
+.sidebar .nav-group-modules{padding:5px 4px 5px 7px;background:#454b47;color:#e1e7e1;border-radius:0 0 8px 8px}
+.sidebar .nav-group[open]>summary{border-radius:8px 8px 0 0}
 .nav-section-title{font-size:11px;font-weight:400;letter-spacing:.08em;color:#aabeb0;padding-inline:10px;margin-bottom:7px}
 .nav-module{padding:7px 10px;gap:8px;font-size:11px;min-height:32px}
 .nav-module>svg{width:15px;height:15px}
@@ -441,7 +443,10 @@ function moduleNavLink(m){const tag=m.placeholder?'span':m.url?'a':'button';retu
 function navigationMenu(){
  const groups=moduleGroups(),all=groups.flatMap(g=>g.cards),recent=recentModules.map(key=>all.find(m=>moduleKey(m)===key&&!m.placeholder)).filter(Boolean);
  const groupIcons={organizacion:'tasks',personas:'people',ocio:'plane',bienestar:'leaf',gestion:'grid'};
- return '<button class="nav-home nav-button '+(view==='inicio'?'active':'')+'" data-view="inicio" '+(view==='inicio'?'aria-current="page"':'')+'>'+icon('home')+'<span>Inicio</span></button><section class="nav-sections" aria-label="Secciones">'+groups.map(g=>'<details class="nav-group '+(g.cards.some(moduleActive)?'has-active':'')+'" data-module-section="'+g.id+'"'+(openSections.has(g.id)?' open':'')+'><summary>'+icon(groupIcons[g.id])+'<span>'+g.name+'</span><span class="nav-group-chevron" aria-hidden="true">›</span></summary><div class="nav-group-modules">'+g.cards.map(moduleNavLink).join('')+'</div></details>').join('')+'</section><section class="nav-recents" aria-label="Últimos módulos"><h2 class="nav-section-title">Últimos módulos</h2><div data-nav-recents>'+ (recent.length?recent.map(moduleNavLink).join(''):'<p class="nav-empty">Aquí aparecerán los módulos que abras.</p>')+'</div></section>';
+ const homeLink='<button class="nav-home nav-button '+(view==='inicio'?'active':'')+'" data-view="inicio" '+(view==='inicio'?'aria-current="page"':'')+'>'+icon('home')+'<span>Inicio</span></button>';
+ const recentMenu='<section class="nav-recents" aria-label="Últimos módulos"><h2 class="nav-section-title">Últimos módulos</h2><div data-nav-recents>'+ (recent.length?recent.map(moduleNavLink).join(''):'<p class="nav-empty">Aquí aparecerán los módulos que abras.</p>')+'</div></section>';
+ const sectionMenu='<section class="nav-sections" aria-label="Secciones">'+groups.map(g=>'<details class="nav-group '+(g.cards.some(moduleActive)?'has-active':'')+'" data-module-section="'+g.id+'"'+(openSections.has(g.id)?' open':'')+'><summary>'+icon(groupIcons[g.id])+'<span>'+g.name+'</span><span class="nav-group-chevron" aria-hidden="true">›</span></summary><div class="nav-group-modules">'+g.cards.map(moduleNavLink).join('')+'</div></details>').join('')+'</section>';
+ return homeLink+recentMenu+sectionMenu;
 }
 
 try{taskSort=localStorage.getItem('arc-task-sort')||'manual';incomingSort=localStorage.getItem('arc-incoming-sort')||'manual';}catch{}

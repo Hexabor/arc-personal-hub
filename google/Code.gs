@@ -5,7 +5,7 @@
  * real system review; this app never claims an automatic AI review.
  */
 const HUB_CORE_ID = PropertiesService.getScriptProperties().getProperty('HUB_CORE_ID');
-const HUB_RELEASE = '0.2.1';
+const HUB_RELEASE = '0.3.0';
 
 function setupHub() {
   const who = Session.getEffectiveUser().getEmail();
@@ -44,7 +44,7 @@ function readSystem_(book) {
 }
 
 function checkCore_(book, system) {
-  if (!['5','6'].includes(String(system.schema_version))) throw new Error('El esquema del sistema ha cambiado. Este HUB admite los esquemas 5 y 6; revisa su compatibilidad antes de leer o escribir.');
+  if (!['5','6','7'].includes(String(system.schema_version))) throw new Error('El esquema del sistema ha cambiado. Este HUB admite los esquemas 5, 6 y 7; revisa su compatibilidad antes de leer o escribir.');
   if (system.capture_mode !== 'incoming_then_consolidation' || system.incoming_status !== 'activo') throw new Error('La captura mediante Incoming no está activa en el contrato.');
   const modules = readRows_(book, String(system.module_registry || 'Módulos'), system, 'Módulos');
   const core = modules.find(r => r['Módulo ID'] === system.module_core_id);
@@ -88,13 +88,16 @@ function getHubData() {
   result.incoming=result.incoming.filter(r=>['Pendiente','En proceso','Revisar'].includes(r.Estado));
   result.incomingOrdering=system.incoming_order_status==='activo';
   if(result.incomingOrdering)result.incoming.forEach(r=>{r._version=taskVersion_(r);r._reviewFingerprint=taskFingerprint_(r);});
-  result.taskEditing=String(system.schema_version)==='6' && system.task_edit_status==='activo';
+  result.taskEditing=['6','7'].includes(String(system.schema_version)) && system.task_edit_status==='activo';
   if(result.taskEditing){
     result.archivedTasks=readRows_(book,String(system.source_tasks_archived),system);
     result.tabs.archivedTasks=book.getSheetByName(String(system.source_tasks_archived)).getSheetId();
     result.taskOptions=taskOptions_(book,system);
     [...result.tasks,...result.archivedTasks].forEach(t=>{t._version=taskVersion_(t);t._reviewFingerprint=taskFingerprint_(t);});
   }
+  if(system.register_sources){const names=[...new Set(String(system.register_sources).split('\n').map(n=>n.trim()).filter(Boolean))];result.history=names.flatMap(name=>readRows_(book,name,system));}
+  result.memoryEditing=system.memory_status==='activo';
+  if(result.memoryEditing)result.history.forEach(r=>{r._version=taskVersion_(r);});
   return result;
 }
 
@@ -189,7 +192,7 @@ function taskOptions_(book,system){
 }
 function taskContext_(){
   const book=SpreadsheetApp.openById(HUB_CORE_ID),system=readSystem_(book);checkCore_(book,system);
-  if(String(system.schema_version)!=='6'||system.task_edit_status!=='activo')throw new Error('La edición de tareas aún no está activa en el contrato.');
+  if(!['6','7'].includes(String(system.schema_version))||system.task_edit_status!=='activo')throw new Error('La edición de tareas aún no está activa en el contrato.');
   const active=book.getSheetByName(String(system.source_tasks_active)),archived=book.getSheetByName(String(system.source_tasks_archived)),audit=book.getSheetByName(String(system.source_task_changes));
   const all=[...readRows_(book,active.getName(),system).map(t=>({task:t,sheet:active})),...readRows_(book,archived.getName(),system).map(t=>({task:t,sheet:archived}))];
   readRows_(book,audit.getName(),system); // Reject an unexpected audit layout before any write.

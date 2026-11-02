@@ -13,15 +13,25 @@ function runtime(){
  return {hooks,events,windowEvents,element,snapshot,location};
 }
 const r=runtime(),day='2026-11-02';
-const rows=[{ID:'far','Fecha del hecho':'2026-12-01'},{ID:'past','Fecha del hecho':'2026-10-31'},{ID:'today','Fecha del hecho':day},{ID:'near','Fecha del hecho':'2026-11-03'},{ID:'old','Fecha del hecho':'2025-01-01'},{ID:'undated','Título':'No date'},{ID:'bad','Fecha del hecho':'2026-02-30'},{}];
+const plan=(ID,date,state='Pendiente')=>({ID,'Título':ID,Planificación:'Planificado','Estado de realización':state,'Fecha prevista':date});
+const fact=(ID,date)=>({ID,'Título':ID,Planificación:'Sin determinar','Estado de realización':'Ocurrido','Fecha real':date});
+const rows=[plan('far','2026-12-01'),plan('past','2026-10-31'),fact('today',day),plan('near','2026-11-03'),fact('old','2025-01-01'),plan('undated',null),plan('bad','2026-02-30'),fact('unknown-date',null),plan('cancelled','2026-11-03','Cancelado'),plan('done','2026-10-30','Ocurrido'),{ID:'unclear','Título':'Legacy','Fecha del hecho':'2025-01-01'},{}];
 const ids=scope=>Array.from(r.hooks.memoryTimeline(rows,scope,day),x=>x.ID);
-assert.deepEqual(ids('history'),['today','past','old']);
-assert.deepEqual(ids('upcoming'),['today','near','far']);
+assert.deepEqual(ids('history'),['today','old','done','unknown-date']);
+assert.deepEqual(ids('upcoming'),['near','far']);
 assert.deepEqual(ids('undated'),['bad','undated']);
+assert.deepEqual(ids('confirm'),['past']);
+assert.deepEqual(ids('closed'),['done','cancelled']);
+assert.deepEqual(ids('review'),['unclear']);
+assert.ok(!ids('history').includes('past'),'Passing time never proves realization');
 assert.equal(rows[0].ID,'far','Filtering must not reorder source records');
-assert.equal(r.hooks.memoryDate({'Fecha del hecho':46271}),'2026-09-06');
-assert.equal(r.hooks.memoryDate({'Fecha del hecho':'02/11/2026'}),day);
-assert.equal(r.hooks.memoryDate({'Fecha del hecho':'2026-02-30'}),'');
+assert.equal(r.hooks.memoryDate({'Fecha real':46271}),'2026-09-06');
+assert.equal(r.hooks.memoryDate({'Fecha real':'02/11/2026'}),day);
+assert.equal(r.hooks.memoryDate({'Fecha real':'2026-02-30'}),'');
+assert.equal(r.hooks.calendarDays('2028-02').length,42);
+assert.ok(r.hooks.calendarDays('2028-02').includes('2028-02-29'));
+assert.equal(new Date(r.hooks.calendarDays('2026-11')[0]+'T12:00:00Z').getUTCDay(),1);
+const multi=plan('multi','2026-10-30');multi['Fin previsto']='2026-11-04';assert.deepEqual(Array.from(r.hooks.memoryTimeline([multi],'upcoming',day),x=>x.ID),['multi']);
 const click=dataset=>r.events.click({target:{closest:()=>({dataset,hasAttribute:()=>false})}});
 (async()=>{
  for(const view of ['tareas','proyectos','personas','incoming','memoria','tareas'])await click({view});
@@ -34,8 +44,9 @@ const click=dataset=>r.events.click({target:{closest:()=>({dataset,hasAttribute:
  r.events.toggle({target:{dataset:{moduleSection:'ocio'},open:true}});assert.ok(stored.get('arc-hub-open-sections-v1').includes('ocio'));
  const restored=runtime();assert.ok(restored.element('side-nav').innerHTML.includes('data-module-section="ocio" open'));
  r.snapshot.history=rows;r.snapshot.recommendations=[{ID:'REC','Título':'Recommendation'}];r.snapshot.ideas=[{ID:'IDEA',Idea:'Idea'}];
- await click({view:'memoria'});await click({memoryScope:'upcoming'});
- const html=r.element('main').innerHTML;assert.ok(html.includes('data-detail="history|near"'));assert.ok(!html.includes('history|old'));assert.ok(html.indexOf('history|near')<html.indexOf('history|far'));assert.ok(html.includes('Sin fecha'));
+ await click({view:'memoria'});await click({memoryScope:'plans'});
+ const html=r.element('main').innerHTML;assert.ok(html.includes('data-detail="history|near"'));assert.ok(!html.includes('history|old'));assert.ok(html.indexOf('history|near')<html.indexOf('history|far'));assert.ok(html.includes('Sin fecha'));assert.ok(html.includes('Calendario'));
+ await click({planView:'calendar'});assert.ok(r.element('main').innerHTML.includes('memory-calendar'));await click({calendarMove:'1'});assert.ok(r.element('main').innerHTML.includes('diciembre'));await click({planView:'agenda'});
  await click({memoryScope:'recommendations'});assert.ok(r.element('main').innerHTML.includes('data-detail="recommendations|REC"'));assert.ok(!r.element('main').innerHTML.includes('history|far'));
  await click({memoryScope:'ideas'});assert.ok(r.element('main').innerHTML.includes('data-detail="ideas|IDEA"'));
  console.log('PASS: inclusive date boundaries, timeline direction, invalid/undated separation, five unique persisted recents, app/direct/external keys, disabled modules, disclosure persistence and independent recommendation/idea tabs.');

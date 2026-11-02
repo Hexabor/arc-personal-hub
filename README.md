@@ -10,7 +10,7 @@ La portada prioriza mostrar la mayor cantidad de información útil sin scroll: 
 
 El lateral muestra los cinco últimos módulos distintos abiertos, de más reciente a más antiguo, y las mismas cinco secciones del inicio como desplegables. Los recientes y la apertura de secciones se conservan en este navegador. En móvil están en Más. La marca ARC vuelve a Inicio.
 
-Memoria separa Lo vivido (fecha de hoy o anterior, descendente) y Lo próximo (hoy o posterior, ascendente), usando el día de Madrid. Recomendaciones e Ideas conservan sus filtros independientes. Los recuerdos sin fecha válida aparecen en Sin fecha cuando hay registros; las filas vacías no se muestran.
+Memoria distingue planificación y realización. Lo vivido incluye solo Ocurrido, con fecha real descendente y recuerdos sin fecha al final. Planes ofrece Agenda y Calendario mensual, filtros Lo próximo, En curso, Sin fecha, Pendientes de confirmar, Cerrados y Todos. Las fechas no cambian estados. Recomendaciones e Ideas conservan sus fuentes propias. Clasificaciones desconocidas van a Por aclarar. La edición explícita conserva previsión y vivencia, comprueba versiones y registra recibos privados.
 
 ## Cloudflare · 1 de noviembre de 2026
 

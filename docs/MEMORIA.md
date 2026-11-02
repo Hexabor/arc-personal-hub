@@ -1,0 +1,25 @@
+# Memoria y planes · 0.3.0
+
+La hoja existente conserva sus primeras dieciséis columnas e IDs. Las columnas nuevas son Planificación, Estado de realización, Fecha prevista, Fin previsto, Hora prevista, Hora fin prevista, Fecha real, Fin real, Lo previsto, Lo vivido y Plan relacionado. Origen y Tipo conservan su significado anterior. Las fechas son nativas; las horas previstas son texto HH:mm de Europe/Madrid. Los fines son inclusivos en la agenda y el calendario. No se inventan horas, duración ni fecha real.
+
+Planificación: Planificado, No planificado o Sin determinar. Realización: Pendiente, En curso, Ocurrido, Cancelado, No realizado o Por aclarar. Los dos campos son independientes: un plan realizado sigue siendo Planificado; una vivencia puede ser No planificado. Pendiente, Cancelado y No realizado corresponden a planes. El paso del tiempo nunca cambia un estado. El desenlace de un plan pasado se confirma explícitamente; desconocerlo no equivale a No realizado. Un resultado decepcionante no borra una vivencia.
+
+Lo vivido exige Ocurrido y se ordena por Fecha real, con recuerdos sin fecha al final. Planes conserva los realizados en Cerrados y ofrece Agenda y Calendario mensual con lunes como primer día. Lo próximo incluye pendientes cuyo intervalo previsto no ha terminado; En curso es explícito. Sin fecha y Pendientes de confirmar separan los pendientes sin fecha y con intervalo pasado. Todos incluye también planes cerrados. Los intervalos se representan cada día y cada evento abre su ficha; los planes sin fecha siguen accesibles fuera de la cuadrícula. El selector Agenda/Calendario se conserva localmente; no guarda datos personales. Filtros por planificación, tipo, persona y texto; solo sin fecha para vivencias. Recomendaciones e Ideas mantienen sus fuentes.
+
+Un registro sencillo conserva intención y experiencia con el mismo ID. Plan relacionado permite asociar recuerdos de un viaje a su plan; se exige una referencia única a otro plan y se rechazan ciclos. El relato histórico original no se sobrescribe. Crear registros sigue el circuito Incoming y consolidación, con las columnas vigentes de Sistema; no se crean tareas automáticamente.
+
+La edición usa updateMemory, comprobación del propietario, bloqueo, versión completa y recibo atómico en Cambios HUB. Los reintentos conservan la solicitud. Se rechazan fechas inexistentes, fechas reales futuras, intervalos invertidos, horas inválidas y fechas reales en planes no realizados. Se conservan fórmulas, chips y validaciones nativas. El borrador de una ficha vive solo en memoria y se recupera tras reconectar como el editor de tareas.
+
+## Migración y compatibilidad
+
+Esquema del núcleo 7; consumidores admiten 5, 6 y 7. La edición de tareas admite 6 y 7. Sistema.memory_status activa las fichas de memoria. getHubData lee todas las fuentes de register_sources; la clasificación no se deduce de la fecha ni del nombre de la pestaña. En entradas sin clasificación explícita, la interfaz muestra Por aclarar. Instalar Memory.gs junto a Code.gs; en la instalación vigente ambos se conservan concatenados en Código.gs, sin duplicar sus funciones.
+
+La migración de datos se prepara tras leer el contrato y cada relato vigente. Preservar A:P, fechas de incorporación e IDs. Copiar el relato de los hechos acreditados a Lo vivido y su fecha a Fecha real; planes a Lo previsto/Fecha prevista, dejando Fecha real vacía. Solo declarar planificación previa o ausencia de planificación cuando exista evidencia; el resto Sin determinar. Guardar la decisión y la evidencia en recibos privados; ningún dato personal entra al repositorio. Actualizar esquemas, catálogos, fechas de contrato, rutas y métricas dependientes.
+
+## Pruebas y recuperación
+
+tests/navigation-memory.cjs comprueba separación semántica, planes pasados, recuerdos sin fecha, intervalos y calendario bisiesto. tests/memory-edits.cjs comprueba backend, combinaciones, autorización, conflictos y reintentos. Mantener también la batería previa de tareas, captura, vacaciones y apps. La vista responsive se prueba con datos sintéticos; verificar lectura y una edición reversible en Google por separado.
+
+Antes de publicar conservar las versiones actuales de Apps Script y Cloudflare y el contrato/datos privados. Para revertir interfaz, recuperar el despliegue anterior de Cloudflare. Para revertir backend tras migrar, usar una versión que admita esquema 7: las versiones antiguas solo admiten hasta 6. No bajar schema_version sin restaurar el contrato y datos respaldados. No eliminar las nuevas columnas ni relatos como forma de recuperación. Las direcciones web/API y el acceso Solo yo se conservan.
+
+Publicación del 02/11/2026: API y web en versión Google 10; recuperación previa API 8/web 9 solo con contrato restaurado. Cloudflare ca66aa34, anterior 98f16b53. Migración privada verificada por lectura posterior; se conservan IDs, relatos y columnas previas. El manual canónico, query_routes, métricas dependientes y el mapa del proveedor Personal quedan alineados. La prueba viva de edición cambió y restauró un título, sin alterar realización, fechas ni relatos. Los registros y sus recibos permanecen privados.

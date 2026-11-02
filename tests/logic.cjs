@@ -43,7 +43,7 @@ const call=(name,args)=>server[name](args);
 const schemaRow=values.Sistema.find(r=>r[0]==='schema_version');
 schemaRow[1]='4';assert.throws(()=>call('getHubData'),/esquema/);assert.equal(appends,0);
 schemaRow[1]='5';const current=call('getHubData');assert.ok(Array.isArray(current.tasks));assert.ok(Array.isArray(current.history));assert.ok(Array.isArray(current.incoming));
-schemaRow[1]='7';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-future-01'}),/esquema/);assert.equal(appends,0);schemaRow[1]='5';
+schemaRow[1]='8';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-future-01'}),/esquema/);assert.equal(appends,0);schemaRow[1]='5';
 const firstHeader=values.Incoming[0][0];values.Incoming[0][0]='Unexpected header';assert.throws(()=>call('captureIncoming',{text:'Do not write',requestId:'request-header-01'}),/columnas/);assert.equal(appends,0);values.Incoming[0][0]=firstHeader;
 active='other@example.invalid';assert.throws(()=>call('captureIncoming',{text:'x',requestId:'1234567890'}),/Acceso privado/);active=owner;
 assert.throws(()=>call('captureIncoming',{text:'   ',requestId:'1234567890'}),/caracteres/);

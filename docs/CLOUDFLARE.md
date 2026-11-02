@@ -49,3 +49,6 @@ Añadido al catálogo, Inicio y lateral en Ocio y viajes. Su enlace abre https:/
 ## Enlaces directos a trackers · 02/11/2026
 
 Watch Tracker y Playtracker aparecen en Ocio y viajes, tanto en Inicio como en el menú lateral y Más en móvil, como enlaces externos a sus direcciones originales. Abren pestaña nueva con noopener/noreferrer. La clave de recientes sigue siendo app:watch/app:play. El catálogo Apps conserva el acceso integrado anterior de Watch Tracker para las rutas históricas; FlowGrid se mantiene igual. No hay cambios de datos, autenticación ni permisos. Recuperación de interfaz: versión anterior 6a10cab4.
+## Icono de móvil · 02/11/2026
+
+Icono ARC en azul noche, familia visual con Watch Tracker y Playtracker, generado con image_gen. Fuentes PNG en ui/icons; manifest y enlaces apple-touch-icon/favicon en ui. Exportaciones opacas 180 px para iOS y 192/512 px para Android, incluida variante maskable con fondo completo. El build de Cloudflare y Pages copia los recursos; la CSP permite manifest-src self. No se añade modo offline ni se cambian datos, autenticación o permisos. Recuperación previa de interfaz: 288a73eb. El uso en un móvil físico queda pendiente.

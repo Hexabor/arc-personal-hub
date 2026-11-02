@@ -37,5 +37,8 @@ if '--pages' in sys.argv:
     (destination/'index.html').write_text(shell, encoding='utf-8')
     shutil.copyfile(root/'docs/mapa-fases.html', destination/'mapa-fases.html')
     shutil.copyfile(root/'docs/mapa-vacaciones.html', destination/'mapa-vacaciones.html')
+    shutil.copyfile(root/'ui/manifest.webmanifest', destination/'manifest.webmanifest')
+    for icon_file in (root/'ui/icons').glob('*.png'):
+        shutil.copyfile(icon_file, destination/icon_file.name)
     (destination/'.nojekyll').write_text('')
 print('Built requested targets. No personal records included.')

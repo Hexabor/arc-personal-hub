@@ -45,3 +45,7 @@ Ejecutar `node tests/logic.cjs`, `node tests/pages.cjs`, `node tests/task-edits.
 ## Playtracker · 02/11/2026
 
 Añadido al catálogo, Inicio y lateral en Ocio y viajes. Su enlace abre https://arc-playtracker.j-arc-main.chatgpt.site/ en una pestaña propia; usa su acceso privado de ChatGPT y su almacenamiento D1. No se incrusta ni comparte tokens. Watch Tracker y FlowGrid conservan sus marcos. La primera versión comienza vacía por decisión de Arc, sin importación de Notion. Recuperación del hub: versión anterior d207c503.
+
+## Enlaces directos a trackers · 02/11/2026
+
+Watch Tracker y Playtracker aparecen en Ocio y viajes, tanto en Inicio como en el menú lateral y Más en móvil, como enlaces externos a sus direcciones originales. Abren pestaña nueva con noopener/noreferrer. La clave de recientes sigue siendo app:watch/app:play. El catálogo Apps conserva el acceso integrado anterior de Watch Tracker para las rutas históricas; FlowGrid se mantiene igual. No hay cambios de datos, autenticación ni permisos. Recuperación de interfaz: versión anterior 6a10cab4.

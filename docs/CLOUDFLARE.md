@@ -52,3 +52,7 @@ Watch Tracker y Playtracker aparecen en Ocio y viajes, tanto en Inicio como en e
 ## Icono de móvil · 02/11/2026
 
 Icono ARC en azul noche, familia visual con Watch Tracker y Playtracker, generado con image_gen. Fuentes PNG en ui/icons; manifest y enlaces apple-touch-icon/favicon en ui. Exportaciones opacas 180 px para iOS y 192/512 px para Android, incluida variante maskable con fondo completo. El build de Cloudflare y Pages copia los recursos; la CSP permite manifest-src self. No se añade modo offline ni se cambian datos, autenticación o permisos. Recuperación previa de interfaz: 288a73eb. El uso en un móvil físico queda pendiente.
+
+## Identidad aprobada · 02/11/2026
+
+Arc aprueba la familia esmeralda y oro suave: esmeralda #228974, grafito #1C211E y oro #DDB84D, con acabado satinado contenido. Hub: Órbita grafito con núcleo dorado. Recuperación: Cloudflare aacd8672. PNG opacos con nombres v2, metadatos de inicio e iconos any/maskable; se conservan los originales v1. Se modifica únicamente identidad del icono y color del navegador, sin rediseñar pantallas ni cambiar autenticación, datos o backend. Playtracker continúa en D1: la migración solicitada a Drive permanece pendiente y es independiente. Exportaciones y prompts en el paquete ARC-esmeralda-oro-20261102. Comprobación en teléfono físico pendiente.

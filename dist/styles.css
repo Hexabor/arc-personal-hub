@@ -63,3 +63,50 @@ main:has(.home-directory){max-width:none;padding:18px 24px 24px;min-height:0}
 @media(max-width:650px){.memory-filters{gap:8px}.memory-filters label{max-width:calc(50% - 5px);flex:1 1 42%}.memory-filters .memory-checkbox{max-width:none;flex-basis:100%}.calendar-cell{min-height:90px;padding:3px}.calendar-event{font-size:10px;padding:3px;line-height:1.3}.calendar-day{width:26px;height:26px}.calendar-toolbar{gap:6px}.calendar-toolbar h2{font-size:15px;min-width:0;flex:1}.calendar-weekday{padding:8px 2px;font-size:10px}.memory-plan-toolbar .filter-chips{flex-basis:100%}.memory-view .history-date{max-width:75px}.memory-view-switch{margin-bottom:4px}}
 
 .memory-filter-panel{margin:12px 0}.memory-filter-panel>summary{font-size:12px;color:var(--muted);cursor:pointer;padding:6px 0;width:fit-content}.calendar-toolbar h2{text-transform:none}.calendar-toolbar h2::first-letter{text-transform:uppercase}
+/* Calendar focus: the month owns the viewport; ancillary content stays in dialogs. */
+body.calendar-focus{overflow:hidden}
+body.calendar-focus>.sidebar,body.calendar-focus>.bottom-nav,body.calendar-focus .topbar,body.calendar-focus .connection-strip,body.calendar-focus .page-footer{display:none}
+body.calendar-focus .workspace{margin:0;height:100vh;height:100dvh;min-height:0}
+body.calendar-focus main{max-width:none;margin:0;padding:0;height:100%;min-height:0}
+.calendar-focus-shell{display:flex;height:100%;min-height:0;background:#fff}
+.calendar-focus-rail{width:52px;flex:0 0 52px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--nav);color:#c2ccda}
+.focus-brand{font-size:25px;line-height:1;font-weight:800;color:var(--green);letter-spacing:-2px;text-decoration:none;padding:4px 0 16px}
+.calendar-focus-shell .focus-icon{width:32px;height:32px;min-height:32px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);padding:5px;font-size:24px;line-height:1}
+.calendar-focus-shell svg{width:17px;height:17px}
+.calendar-focus-rail .focus-icon{background:transparent;border-color:transparent;color:inherit}
+.calendar-focus-rail .focus-icon:hover,.calendar-focus-rail .focus-icon.active{background:#ffffff16;color:var(--green)}
+.focus-connection{margin-top:auto;background:transparent;border:0;color:#b6db8a;padding:8px;font-size:15px}
+.focus-connection.has-error{color:#ffc289}
+.calendar-focus-content{min-width:0;min-height:0;flex:1;display:flex;flex-direction:column}
+.calendar-focus-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;padding:10px 16px 8px;border-bottom:1px solid var(--line)}
+.focus-section{display:flex;align-items:center;gap:9px;min-width:0}
+.focus-section h1{font-size:17px;letter-spacing:-.4px;line-height:1.2;margin:0}
+.focus-section>span{color:#a5afbc}
+.calendar-focus-shell select{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 26px 4px 8px;font-size:12px;color:var(--ink);min-height:32px;max-width:100%}
+.focus-section select{max-width:155px}
+.focus-month-controls{display:flex;align-items:center;gap:7px}
+.focus-month-controls h2{font-size:17px;text-align:center;min-width:170px;letter-spacing:-.3px;font-weight:650}
+.focus-month-controls h2::first-letter{text-transform:uppercase}
+.calendar-focus-shell .focus-text,.focus-exit,.focus-filter,.calendar-focus-shell .focus-segment{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:12px;line-height:1.3;min-height:32px;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:white;color:var(--ink);white-space:nowrap}
+.calendar-focus-shell button:hover{filter:brightness(.96)}
+.focus-exit{color:var(--muted)}
+.calendar-focus-tools{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 16px;min-height:48px;flex-shrink:0;background:#fafbfc;border-bottom:1px solid var(--line)}
+.focus-scope-label{min-width:0}.focus-result-count{font-size:12px;color:var(--muted);white-space:nowrap}
+.focus-read-error{font-size:12px;color:#8b322a;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px}.focus-read-error:empty{display:none}
+.calendar-focus-tools .memory-view-switch{display:flex;margin:0 0 0 auto;gap:0;flex-shrink:0}
+.calendar-focus-shell .focus-segment{border-radius:0}.calendar-focus-shell .focus-segment:first-child{border-radius:6px 0 0 6px}.calendar-focus-shell .focus-segment:last-child{border-radius:0 6px 6px 0;border-left:0}.calendar-focus-shell .focus-segment.active{background:var(--nav);color:#fff;border-color:var(--nav)}
+.calendar-focus-board{flex:1;min-height:0;min-width:0;padding:0 12px 12px;background:var(--paper)}
+.calendar-focus-shell .focus-month-grid{height:100%;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:24px repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-top:0;border-radius:0 0 7px 7px;overflow:hidden}
+.calendar-focus-shell .calendar-weekday{padding:3px 2px;font-size:11px;line-height:18px}
+.calendar-focus-shell .calendar-cell{min-height:0;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;align-items:stretch}
+.calendar-focus-shell .calendar-day{width:24px;height:24px;min-height:24px;flex-shrink:0;margin:0 0 3px;font-size:12px;padding:0;line-height:24px}
+.calendar-focus-shell .calendar-event{font-size:12px;line-height:1.25;margin:0;padding:3px 5px;min-height:0;max-height:36px;flex-shrink:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.calendar-focus-shell .calendar-more{border:0;background:transparent;color:var(--blue);text-align:left;padding:1px 4px;font-size:11px;line-height:16px;min-height:18px;flex-shrink:0;white-space:nowrap}
+.calendar-focus-shell .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+dialog.memory-overlay{max-height:90vh;max-height:90dvh;overflow:auto}.memory-overlay .memory-filters{margin-bottom:0}.memory-overlay h2{margin-bottom:14px}.calendar-expand{margin:0 0 8px}
+@media(max-width:1050px){.calendar-focus-header{gap:8px;padding-inline:10px}.calendar-focus-tools{gap:6px;padding-inline:10px}.focus-result-count{display:none}.focus-month-controls h2{min-width:150px;font-size:16px}.focus-section h1{font-size:15px}.focus-section{gap:6px}.focus-read-error{max-width:140px}}
+@media(max-width:700px){.calendar-focus-rail{width:40px;flex-basis:40px;padding:10px 3px;gap:8px}.calendar-focus-header{display:grid;grid-template-columns:1fr auto;padding:7px 8px;gap:7px}.focus-section{grid-column:1}.focus-month-controls{grid-row:2;grid-column:1 / -1;justify-content:center}.focus-exit{grid-row:1;grid-column:2}.focus-exit span{display:none}.calendar-focus-tools{flex-wrap:wrap;padding:7px 6px;gap:6px}.calendar-focus-shell select{font-size:12px}.focus-scope-label{flex:1}.calendar-focus-tools .memory-view-switch{margin-left:0}.focus-read-error{order:5;max-width:100%;flex-basis:100%}.calendar-focus-board{padding:0 4px 4px}.calendar-focus-shell .calendar-cell{padding:2px}.calendar-focus-shell .calendar-event{font-size:10px;padding:2px;line-height:1.2}.calendar-focus-shell .calendar-more{font-size:10px;padding-inline:1px}.calendar-focus-shell .calendar-day{margin-bottom:1px}.calendar-focus-header .focus-icon,.calendar-focus-header .focus-text,.focus-exit,.calendar-focus-tools button,.calendar-focus-tools select{min-height:40px}.calendar-focus-tools>.focus-icon{width:36px}.focus-section h1{font-size:15px}}
+@media(prefers-reduced-motion:reduce){body.calendar-focus{scroll-behavior:auto}}
+@media print{body.calendar-focus{overflow:visible}body.calendar-focus .workspace{height:auto}.calendar-focus-shell .focus-month-grid{height:auto;grid-template-rows:24px repeat(6,minmax(85px,1fr))}.calendar-focus-rail,.focus-exit{display:none}}
+
+@media(max-width:700px){.calendar-focus-tools .focus-scope-label{flex:1 0 100%;min-width:0}.calendar-focus-tools .focus-scope-label select{width:100%}.calendar-focus-shell .calendar-focus-tools .focus-icon,.calendar-focus-shell .calendar-focus-tools .focus-segment{min-height:40px}}

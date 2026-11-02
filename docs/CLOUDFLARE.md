@@ -32,6 +32,10 @@ Watch Tracker admite únicamente https://hub.arcdev.app como padre. `?hub=1` den
 
 ## Recuperación
 
+Calendario en foco (02/11/2026): construido desde los mismos recursos de `dist/`, compartidos por Cloudflare, Pages y la web privada. Seis semanas ajustadas a la ventana, con filtros y detalles superpuestos. La interfaz previa es Cloudflare `ca66aa34`; la web privada previa, Google versión 10. API 10, esquema 7 y contrato 15 permanecen compatibles. Añadir `node tests/calendar-focus.cjs` a la validación. Detalles en [MEMORIA.md](MEMORIA.md).
+
+Publicación vigente del modo foco: Cloudflare `d207c503`, once recursos públicos verificados contra el paquete, y web privada Google 12. La API sigue en 10. La publicación de Pages se ejecuta mediante su flujo manual habitual.
+
 El hub anterior sigue en https://hexabor.github.io/arc-personal-hub/. La migración no cambió los despliegues de Apps Script ni las hojas. Para revertir una publicación de interfaz, seleccionar la versión anterior en Deployments del Worker; la versión de Watch Tracker anterior a esta integración es `37a83dfe`.
 
 ## Validación

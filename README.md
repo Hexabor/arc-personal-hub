@@ -14,6 +14,8 @@ Memoria distingue planificación y realización. Lo vivido incluye solo Ocurrido
 
 ## Cloudflare · 1 de noviembre de 2026
 
+El Calendario de Planes ofrece un modo foco con el mes completo ajustado a la ventana, navegación reducida y filtros/detalles superpuestos. Agenda, Salir de foco y la preferencia local permiten volver al diseño habitual. Uso, pruebas y recuperación en [docs/MEMORIA.md](docs/MEMORIA.md).
+
 Acceso principal: [hub.arcdev.app](https://hub.arcdev.app/). Conserva la conexión y datos originales e incorpora Apps para abrir Watch Tracker y FlowGrid dentro del hub o por separado. Cada app mantiene su propia sesión. Construcción y recuperación en [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). El acceso anterior de GitHub Pages continúa disponible.
 
 ## Estado · 5 de octubre de 2026

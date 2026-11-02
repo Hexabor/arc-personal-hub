@@ -31,6 +31,7 @@
     }
     document.title = app ? app.name + ' · ARC' : 'Apps · ARC';
     if (updateHash) window.history.replaceState(null, '', '#apps' + (selected ? '/' + selected : ''));
+    if (updateHash && app && typeof window.CustomEvent === 'function') window.dispatchEvent(new window.CustomEvent('arc-module-open', { detail: { key: 'app:' + app.id } }));
   }
   function show(target) {
     root = target;

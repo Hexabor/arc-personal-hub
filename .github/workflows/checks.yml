@@ -20,5 +20,6 @@ jobs:
       - run: node tests/task-ui.cjs
       - run: node tests/vacaciones.cjs
       - run: node tests/apps.cjs
+      - run: node tests/navigation-memory.cjs
       - run: node cloudflare/build.cjs
       - run: python3 build.py --pages --allow-unconfigured

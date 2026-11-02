@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: '22'
       - run: node tests/logic.cjs && node tests/pages.cjs && node tests/vacaciones.cjs
+      - run: node tests/navigation-memory.cjs
       - run: python3 build.py --pages
         env:
           ARC_GOOGLE_CLIENT_ID: ${{ vars.ARC_GOOGLE_CLIENT_ID }}

@@ -11,7 +11,7 @@ for(const name of fs.readdirSync(path.join(root,'ui/icons')))fs.copyFileSync(pat
 let html=fs.readFileSync(path.join(root,'ui/index.html'),'utf8');
 html=html.replace('<script src="app.js"></script>','<script src="config.js"></script><script src="google-backend.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="app.js"></script>');
 if(html.includes('HUB_SNAPSHOT ='))throw Error('Private snapshot in output');
-for(const name of ['app.js','apps.js','styles.css'])html=html.replace('"'+name+'"','"'+name+'?v=20261102-tracker-links"');
+for(const name of ['app.js','apps.js','styles.css'])html=html.replace('"'+name+'"','"'+name+'?v=20261102-personas-cumples"');
 fs.writeFileSync(path.join(out,'index.html'),html);
 for(const name of ['mapa-fases.html','mapa-vacaciones.html'])fs.copyFileSync(path.join(root,'docs',name),path.join(out,name));
 const csp="default-src 'none'; manifest-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' https://accounts.google.com/gsi/; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self' https: data:; connect-src https://script.googleapis.com https://www.googleapis.com https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/ https://watch.arcdev.app https://flowgrid.arcdev.app; font-src 'self'";

@@ -56,3 +56,13 @@ Icono ARC en azul noche, familia visual con Watch Tracker y Playtracker, generad
 ## Identidad aprobada · 02/11/2026
 
 Arc aprueba la familia esmeralda y oro suave: esmeralda #228974, grafito #1C211E y oro #DDB84D, con acabado satinado contenido. Hub: Órbita grafito con núcleo dorado. Recuperación: Cloudflare aacd8672. PNG opacos con nombres v2, metadatos de inicio e iconos any/maskable; se conservan los originales v1. Se modifica únicamente identidad del icono y color del navegador, sin rediseñar pantallas ni cambiar autenticación, datos o backend. Playtracker continúa en D1: la migración solicitada a Drive permanece pendiente y es independiente. Exportaciones y prompts en el paquete ARC-esmeralda-oro-20261102. Comprobación en teléfono físico pendiente.
+
+## Personas y cumpleaños · 02/11/2026
+
+Personas abre en Próximos cumpleaños. Recientes muestra la última ocurrencia anual de cada cumpleaños; Fichas conserva el contexto anterior. Las dos listas incluyen hoy y ordenan por distancia en días a la fecha de Madrid: próximos hacia delante y recientes hacia atrás, con un ciclo anual completo. Salir del módulo y volver restaura Próximos; la actualización de datos conserva la pestaña abierta.
+
+Las fechas se leen del registro canónico ya disponible en dates/history, con una fila por persona y mes/día aunque las dos lecturas compartan registros. Se vincula la ficha mediante el ID, conservando los nombres actuales y las personas distintas. La edad corresponde al año de la ocurrencia mostrada, nunca al año actual sin ajustar. Un año ausente, dudoso o contradictorio no genera edad. Los cumpleaños sin año usan solo la declaración explícita de mes/día del relato; no fechas de importación ni años citados como dudosos. El 29 de febrero se muestra con su fecha original y se sitúa el 28 de febrero en años no bisiestos.
+
+Validación: node tests/personas-birthdays.cjs, además de la batería habitual. Incluye orden, cambio de año, edades, hoy, años dudosos, duplicados, identidades, fecha inválida, año bisiesto y navegación entre las tres pestañas. El paquete público no contiene registros personales. La muestra privada de validación se conserva fuera del repositorio.
+
+Publicado en Cloudflare 86666cd4; recuperación anterior 83b7da99. Los 20 recursos servidos coinciden byte a byte con el paquete público. Comprobación conectada: 69 cumpleaños, orden correcto en ambas pestañas, 13 edades sin confirmar, 74 fichas conservadas y vínculo de Nerea Morales a PER-0074. La web privada de Google y GitHub Pages tienen su paquete actualizado en el repositorio; sus despliegues independientes no forman parte de esta publicación.

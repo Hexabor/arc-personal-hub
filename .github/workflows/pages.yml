@@ -24,6 +24,7 @@ jobs:
         env:
           ARC_GOOGLE_CLIENT_ID: ${{ vars.ARC_GOOGLE_CLIENT_ID }}
           ARC_API_DEPLOYMENT_ID: ${{ vars.ARC_API_DEPLOYMENT_ID }}
+      - run: node tests/google-inline.cjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

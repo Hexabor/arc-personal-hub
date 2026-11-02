@@ -1,0 +1,10 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(__dirname+'/../google/Index.html','utf8');
+const scripts=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
+assert.equal(scripts.length,2);for(const script of scripts)new vm.Script(script);
+const app=scripts.find(s=>s.includes('const renderers='));assert.ok(app);
+assert.ok(app.includes('href="https:\\/\\/hub.arcdev.app/#apps"'),'Protect the Apps link from HtmlService inline rewriting');
+assert.ok(!app.includes('https://'),'Inline URL literals must escape their slashes');
+assert.equal(vm.runInNewContext("'https:\\/\\/hub.arcdev.app/#apps'"),'https://hub.arcdev.app/#apps');
+assert.ok(!html.includes('HUB_SNAPSHOT ='));
+console.log('PASS: both inline scripts parse; Google-safe URLs retain their destination; no personal snapshot is bundled. Live HtmlService still requires browser verification.');

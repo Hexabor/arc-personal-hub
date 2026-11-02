@@ -13,7 +13,10 @@ google = google.replace('<script src="vacaciones.js"></script>','<script>'+vac_j
 google = google.replace('<link rel="stylesheet" href="apps.css">', '<style>'+(root/'pages/apps.css').read_text(encoding='utf-8')+'</style>')
 google = google.replace('<script src="apps.js"></script>', '')
 google = google.replace('href="mapa-fases.html"', 'href="https://hub.arcdev.app/mapa-fases.html"')
-google = google.replace('<script src="app.js"></script>', '<script>'+app+'</script>')
+# HtmlService's inline script rewriting can treat a URL inside HTML markup as a
+# line comment. Escaped slashes preserve the JS string and the resulting link.
+google_app = app.replace('https://', r'https:\/\/')
+google = google.replace('<script src="app.js"></script>', '<script>'+google_app+'</script>')
 assert 'HUB_SNAPSHOT =' not in google
 (root/'google/Index.html').write_text(google, encoding='utf-8')
 if '--pages' in sys.argv:

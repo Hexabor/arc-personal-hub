@@ -4,6 +4,8 @@
 
 Interfaz adaptable a móvil y ordenador para consultar y seguir el sistema personal existente en Google Sheets, con captura puntual en un desplegable cerrado por defecto.
 
+El inicio reúne las secciones del núcleo, las apps y los módulos registrados en tarjetas individuales. «Que no se te escape» queda plegado encima del directorio. Las tarjetas de apps abren su vista dentro del hub; los módulos pendientes de integración conservan el acceso a su hoja.
+
 ## Cloudflare · 1 de noviembre de 2026
 
 Acceso principal: [hub.arcdev.app](https://hub.arcdev.app/). Conserva la conexión y datos originales e incorpora Apps para abrir Watch Tracker y FlowGrid dentro del hub o por separado. Cada app mantiene su propia sesión. Construcción y recuperación en [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md). El acceso anterior de GitHub Pages continúa disponible.

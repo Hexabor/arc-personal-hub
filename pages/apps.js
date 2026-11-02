@@ -51,5 +51,5 @@
     choose(hash.startsWith('#apps/') ? hash.slice(6) : hash === '#apps' ? '' : selected, false);
   }
   function hide() { if (root) root.hidden = true; }
-  window.ARC_APPS = Object.freeze({ show, hide });
+  window.ARC_APPS = Object.freeze({ show, hide, catalog });
 })();

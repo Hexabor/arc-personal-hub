@@ -6,7 +6,7 @@ fs.mkdirSync(out,{recursive:true});
 for(const name of ['app.js','styles.css','vacaciones.js','vacaciones.css'])fs.copyFileSync(path.join(root,'dist',name),path.join(out,name));
 for(const name of ['google-backend.js','apps.js','apps.css'])fs.copyFileSync(path.join(root,'pages',name),path.join(out,name));
 fs.writeFileSync(path.join(out,'config.js'),'window.ARC_PUBLIC_CONFIG = '+JSON.stringify(config)+';\n');
-fs.copyFileSync(path.join(root,'ui/manifest.webmanifest'),path.join(out,'manifest.webmanifest'));
+fs.copyFileSync(path.join(root,'ui/manifest.json'),path.join(out,'manifest.json'));
 for(const name of fs.readdirSync(path.join(root,'ui/icons')))fs.copyFileSync(path.join(root,'ui/icons',name),path.join(out,name));
 let html=fs.readFileSync(path.join(root,'ui/index.html'),'utf8');
 html=html.replace('<script src="app.js"></script>','<script src="config.js"></script><script src="google-backend.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="app.js"></script>');

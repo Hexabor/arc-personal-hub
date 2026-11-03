@@ -177,7 +177,7 @@ path.e.debil{stroke-dasharray:4 6;stroke-width:1.8}
 
 <div class="wrap">
   <header>
-    <h1>Árbol de fases · ARC · HUB personal<small>Estado a 12/10/2026 · Construcción documentada; aceptación pendiente</small></h1>
+    <h1>Árbol de fases · ARC · HUB personal<small>Navegación revisada a 03/11/2026 · Publicación y aceptación pendientes</small></h1>
     <div class="cab-der"><div class="temas" role="group" aria-label="Tema"><button type="button" class="tema" data-t="light">☀ Día</button><button type="button" class="tema" data-t="esmeralda">◆ Esmeralda</button><button type="button" class="tema" data-t="dark">☾ Noche</button></div><div class="leyenda" aria-label="Leyenda">
       <span><i class="k done">✓</i>Completada</span>
       <span><i class="k curso"></i>En curso</span>
@@ -403,6 +403,20 @@ const FASES = [
       "rechazo",
       "caducidad"
     ]
+  },
+  {
+    "id": "navegacion",
+    "r": "func",
+    "nv": 4,
+    "f": 0,
+    "ic": "↶",
+    "t": "Volver y Planes",
+    "e": "pausa",
+    "q": "Equipo del HUB",
+    "k": "remate",
+    "d": "03/11/2026: botón Volver y accesos independientes a Memoria/Planes implementados y probados con datos sintéticos. Conserva filtros, búsqueda, mes y posición; detalles anidados y vuelta desde tareas al proyecto. Revisión visual de escritorio en vista previa realizada. Código preparado; Cloudflare pide inicio de sesión y aún no está publicado.",
+    "prox": "Restablecer acceso de publicación, subir el paquete al Worker existente y comprobar los recursos servidos.",
+    "dep": []
   }
 ];
 /* ==================== FIN DE LOS DATOS ==================== */
@@ -438,6 +452,20 @@ const SUB = {
       "e": "audit",
       "g": "pend",
       "d": "Implementación en el código y ensayo sintético; no se reordenaron registros reales."
+    }
+  ],
+  "navegacion": [
+    {
+      "t": "Construcción y pruebas",
+      "e": "audit",
+      "g": "parcial",
+      "d": "13 suites sintéticas superadas y vista previa de escritorio; inicio, calendario, día y detalle comprobados en navegador. Sin registros privados en el paquete."
+    },
+    {
+      "t": "Publicación y uso",
+      "e": "todo",
+      "g": "pend",
+      "d": "Paquete Cloudflare y Google generado. Falta sesión de Cloudflare para publicar, contraste de recursos vivos y prueba en el móvil físico."
     }
   ]
 };
@@ -637,3 +665,4 @@ marcar();
 document.querySelectorAll('.tema').forEach(b=>b.addEventListener('click',()=>{raiz.dataset.theme=b.dataset.t;try{localStorage.setItem(TEMA,b.dataset.t);}catch{}marcar();}));
 matchMedia('(prefers-color-scheme: light)').addEventListener?.('change',marcar);
 </script>
+

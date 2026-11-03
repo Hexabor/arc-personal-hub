@@ -8,6 +8,8 @@ El inicio reúne las secciones del núcleo, las apps y los módulos registrados 
 
 La portada prioriza mostrar la mayor cantidad de información útil sin scroll: tarjetas horizontales compactas, secciones visibles por ámbito, `›` para destinos internos y `↗` para enlaces que abren otra pestaña. Los módulos sin destino o pendientes de conexión se muestran atenuados; sus descripciones siguen disponibles al pasar el cursor y en el nombre accesible.
 
+Inicio incluye accesos independientes a Memoria (Lo vivido) y Planes, ambos dentro del mismo módulo. El botón «Volver» restaura la vista anterior, su búsqueda, filtros, pestaña, mes y posición con los datos cargados, sin recargar la página ni pedir otra lectura. En las fichas vuelve al diálogo previo o a la lista de origen. El historial solo vive en memoria de la pestaña y se vacía al cambiar de sesión.
+
 El lateral muestra los cinco últimos módulos distintos abiertos, de más reciente a más antiguo, y las mismas cinco secciones del inicio como desplegables. Los recientes y la apertura de secciones se conservan en este navegador. En móvil están en Más. La marca ARC vuelve a Inicio.
 
 Memoria distingue planificación y realización. Lo vivido incluye solo Ocurrido, con fecha real descendente y recuerdos sin fecha al final. Planes ofrece Agenda y Calendario mensual, filtros Lo próximo, En curso, Sin fecha, Pendientes de confirmar, Cerrados y Todos. Las fechas no cambian estados. Recomendaciones e Ideas conservan sus fuentes propias. Clasificaciones desconocidas van a Por aclarar. La edición explícita conserva previsión y vivencia, comprueba versiones y registra recibos privados.
@@ -53,4 +55,5 @@ El último comando sirve para comprobar una compilación sin credenciales config
 En el transporte temporal actual, el token de Google permanece en memoria y la lectura no se guarda en disco. Cerrar/recargar la página pierde el token; no hay sesión persistente implementada. El borrador de captura se conserva solo en el dispositivo, como en el HUB anterior. Desconectar oculta los datos de la sesión; no revoca permisos de Google ni borra un borrador. El servidor sigue validando al propietario en cada operación. Esta es la modalidad por sesión aceptada; consultar la guía para distinguir las comprobaciones ejecutadas de la aceptación todavía pendiente.
 
 La versión 0.2.0 incorpora orden manual compartido, selección de orden de vista y fichas editables de tareas activas/archivadas. Conserva IDs, fechas nativas, autor de edición, revisión vinculada al contenido y feedback. Cada cambio tiene un recibo privado en Cambios HUB; rechaza versiones obsoletas y admite reintentos sin duplicar. Cerrar/reabrir copia y verifica antes de retirar la fila original. Requiere el esquema 6 y el contrato task_edit_status activo. No instala revisiones automáticas de IA, consolidación ni notificaciones.
+
 

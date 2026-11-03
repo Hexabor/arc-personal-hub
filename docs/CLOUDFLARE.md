@@ -110,3 +110,12 @@ La API privada existente y la web de Google se actualizan a la versión 14, con 
 Validación: doce suites locales; pruebas sintéticas adicionales de resúmenes, originales plegados, homónimos, IDs exactos, tareas abiertas, vivencias confirmadas, planes pendientes, estados de regalos y navegación de vuelta. Revisión visual a 1280 y 390 px; esto no sustituye una prueba en teléfono físico. La hoja se relee tras la escritura: 74 identidades conservadas, 11 resúmenes y 4 preferencias contrastadas, sin cambios en A:L. Norma y recibos privados actualizados. Evidencias e instantáneas permanecen fuera del repositorio y del paquete público.
 
 Recuperación: volver a Cloudflare 3ba48279 revierte la interfaz; API 10 y web 13 son las versiones anteriores. Las nuevas columnas son aditivas y compatibles con el lector anterior. No borrar notas, preferencias ni recibos para revertir el aspecto. El acceso de Pages conserva su despliegue independiente.
+
+
+## Volver y acceso a Planes · 03/11/2026
+
+Implementación preparada: control Volver en la cabecera, fichas, calendario en foco y editor de vacaciones. Conserva búsqueda, filtros, pestañas, mes y posición; un proyecto puede abrir sus tareas y regresar a la ficha anterior. Los detalles anidados conservan la lista del día o sección de persona. La navegación usa los datos cargados y mantiene los marcos de apps. No equivale a historial interno de aplicaciones externas ni a conservación después de recargar. Los cambios sin guardar requieren la confirmación existente y el guardado en curso bloquea la salida.
+
+Inicio, lateral y recientes distinguen Memoria / Lo vivido (`#memoria/history`) y Planes (`#memoria/plans`). El enlace histórico `#memoria` sigue siendo compatible. El historial de hasta 40 pantallas vive solo en memoria y se limpia al cambiar la sesión; no guarda registros ni tokens en almacenamiento ni history.state.
+
+Validación: tests/back-navigation.cjs y suites existentes. Caché 20261103-navigation-back. Preparación de Google Index y Cloudflare desde la misma interfaz; **publicación pendiente de acceso a Cloudflare**, cuyo navegador muestra el inicio de sesión. No se modifica la API, permisos, datos ni el esquema. Recuperación de producción anterior: 42c2f7a9. Revisión de escritorio en vista previa con datos sintéticos realizada (Inicio → Planes → día → ficha → Volver, sin recarga). La comprobación móvil y la coincidencia de recursos publicados siguen pendientes; no presentar esta preparación como desplegada.

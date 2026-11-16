@@ -31,3 +31,7 @@ Acceso desde el Hub publicado con autorización específica de Arc: Vacaciones p
 El árbol técnico anterior no se marca como aceptado por estas pruebas: el uso real en el teléfono corresponde a Arc. Próximo paso de uso: abrir el dominio en el teléfono y añadirlo a la pantalla de inicio. Para mantenimiento, conservar la diferencia documentada entre el Hub vivo y main hasta reconciliarla en una tarea autorizada; no sustituir la interfaz del Hub por un build completo de main solo para actualizar Ourense.
 
 La vista previa sintética reside en cloudflare/evidence, fuera del repositorio y del paquete. Nunca subirla.
+
+## Copia mantenible de la fuente
+
+El código está guardado en este checkout local, commit `9fb45862660eb480589352ce95cc7f547742c69e` más esta nota. La subida de main a GitHub fue rechazada por la revisión automática al pedir autorización específica de publicación del repositorio. No se ha insistido ni publicado por otra vía. Esto no afecta a las dos publicaciones de Cloudflare, verificadas byte a byte: 12 recursos de Ourense y 23 del Hub coinciden con los paquetes enviados. Para retomar mantenimiento usar este checkout y el inventario privado, ya que GitHub todavía no contiene los cambios de Ourense. Publicar la copia de GitHub es opcional y requiere resolver esa autorización específica.

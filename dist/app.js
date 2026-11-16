@@ -110,7 +110,7 @@ function moduleGroups(){
  add('personas',{view:'personas',icon:'people',name:'Personas',description:'Vínculos y contexto que quieres recordar.'});
  add('personas',{view:'memoria',icon:'history',name:'Memoria',scope:'history',description:'Lo vivido, recomendaciones e ideas.'});
  add('personas',{view:'memoria',scope:'plans',icon:'clock',name:'Planes',description:'Agenda y calendario de lo que tienes previsto.'});
- add('ocio',{view:'vacaciones',icon:'plane',name:'Vacaciones',description:'Agenda y planes de viaje.'});
+ add('ocio',{view:'vacaciones',url:'https://ourense.arcdev.app/',icon:'plane',name:'Ourense',description:'Agenda y planes del viaje. Abre la app móvil.'});
  for(const item of window.ARC_APPS?.catalog||[])add(['watch','play'].includes(item.id)?'ocio':'gestion',{app:item.id,...(['watch','play'].includes(item.id)||item.external?{url:item.url}:window.location?.hostname==='hexabor.github.io'?{url:'https://hub.arcdev.app/#apps/'+item.id}:{}),icon:item.id==='watch'?'book':'grid',name:item.name,description:item.description,image:item.icon});
  for(const m of data?.modules||[]){
   const domain=fold(m.Dominio),id=m['Módulo ID'];

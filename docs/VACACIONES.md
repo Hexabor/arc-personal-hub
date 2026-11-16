@@ -1,5 +1,9 @@
 # App de vacaciones del HUB personal
 
+## Ourense en móvil · 16/11/2026
+
+Acceso independiente publicado: https://ourense.arcdev.app/. Interfaz compacta en la familia ARC, pestañas móviles Agenda/Por encajar, fechas DD/MM/AAAA y metadatos para instalarla con su propio icono. Reutiliza el backend privado y cliente Google actuales; no copia los datos a otro almacenamiento. Fuente y recuperación del Worker `ourense-arc` en [OURENSE-MOVIL.md](OURENSE-MOVIL.md). La entrada histórica integrada que se describe debajo permanece disponible; los despliegues Google/Pages no se han vuelto a publicar en esta adaptación.
+
 La navegación Vacaciones, el acceso de Inicio y el enlace de Módulos abren la app dentro del mismo HUB. Usa el mismo inicio de sesión y un archivo de Sheets propio resuelto por Módulos, sin incluir su identificador o registros en el repositorio público.
 
 ## Contrato

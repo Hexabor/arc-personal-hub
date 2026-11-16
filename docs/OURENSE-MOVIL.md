@@ -16,7 +16,7 @@ Cabecera compacta, agenda y planes por encajar en pestañas móviles, día selec
 
 Sintaxis del módulo y del shell, vacaciones (acceso privado, conflictos, reintentos e idempotencia), transporte de Google, navegación de vuelta e inline de Google superados. Navegador local con ejemplos sintéticos: 390×844 y 320×740, sin desbordamiento de la página; navegación día/pestañas, alta con fecha preseleccionada, edición con fechas vacías y rechazo local de fecha inexistente. La instalación en móvil físico queda pendiente de Arc.
 
-Publicado y verificado el 16/11/2026 en https://ourense.arcdev.app/, Worker estático `ourense-arc` de la cuenta personal Cloudflare ya existente. Versión final `a4388ad8`; primera versión recuperable `407b3fd7`. Dominio enlazado en Production y HTTPS operativo. Se conserva el acceso a los datos de Google exclusivamente por la API privada existente; el paquete público no contiene planes personales. Arc autorizó expresamente la publicación, el dominio y la configuración/comprobación de Google durante esta sesión.
+Publicado y verificado el 16/11/2026 en https://ourense.arcdev.app/, Worker estático `ourense-arc` de la cuenta personal Cloudflare ya existente. Versión vigente `100d052e`, con calendario y horas de 24 horas; anterior estable `a4388ad8` y primera versión recuperable `407b3fd7`. Dominio enlazado en Production y HTTPS operativo. Se conserva el acceso a los datos de Google exclusivamente por la API privada existente; el paquete público no contiene planes personales. Arc autorizó expresamente la publicación, el dominio y la configuración/comprobación de Google durante esta sesión.
 
 Se añadió solo https://ourense.arcdev.app a los orígenes JavaScript del cliente existente `ARC HUB personal — Pages`, manteniendo https://hexabor.github.io y https://hub.arcdev.app. Google confirmó el guardado; no se cambiaron credenciales, scopes ni audiencia. La conexión y lectura reales funcionaron desde el dominio nuevo: siete planes, cuatro con fecha y tres por encajar. Se comprobó el editor real (fechas DD/MM/AAAA, horas y referencias) sin guardar cambios. Ningún plan modificado durante la adaptación.
 
@@ -31,6 +31,16 @@ Acceso desde el Hub publicado con autorización específica de Arc: Vacaciones p
 El árbol técnico anterior no se marca como aceptado por estas pruebas: el uso real en el teléfono corresponde a Arc. Próximo paso de uso: abrir el dominio en el teléfono y añadirlo a la pantalla de inicio. Para mantenimiento, conservar la diferencia documentada entre el Hub vivo y main hasta reconciliarla en una tarea autorizada; no sustituir la interfaz del Hub por un build completo de main solo para actualizar Ourense.
 
 La vista previa sintética reside en cloudflare/evidence, fuera del repositorio y del paquete. Nunca subirla.
+
+## Fechas con calendario y horas de 24 horas · 16/11/2026
+
+Por instrucción fundacional de Arc, las horas se muestran y editan siempre en HH:mm (24 horas), independientemente de la configuración regional del dispositivo. El formulario usa dos selectores numéricos: horas 00–23 y minutos 00–59, con valor vacío opcional; ya no depende del control de hora nativo que podía mostrar AM/PM. La última lectura fija también `hourCycle: h23`.
+
+Los campos de fecha mantienen el texto DD/MM/AAAA y añaden un botón de calendario propio. La ventana mensual empieza en lunes, permite teclado y navegación entre meses dentro del viaje, destaca la fecha seleccionada y ofrece borrar o cancelar. Solo admite fechas dentro del período original. Seleccionar un día convierte su valor visible a DD/MM/AAAA; guardar conserva el contrato ISO de la API. Escape cierra solo el calendario y conserva la ficha del plan.
+
+Pruebas con datos sintéticos: selección de 18/11/2026 y envío 2026-11-18 con 23:59; cambio de mes y envío 2026-12-01 con 00:00; borrado de fecha y hora conserva valores vacíos. Revisión a 390×844 y 320×740, incluida la lectura completa del campo de fecha, límites del calendario y cierre con Escape. No se modifican planes reales en estas pruebas. Criterio general guardado en la memoria de instrucciones de Arc.
+
+Publicación `100d052e`, Ready al 100 %. Comprobación del editor real en el dominio: fecha completa, valores de hora/minuto y calendario; sin guardar cambios de planes. La variante intermedia `31e0e10f` se sustituyó para conservar la anchura original de Tipo/Estado, dando espacio adicional solo a las parejas fecha/hora. Fuente compartida actualizada; no se vuelven a desplegar los accesos históricos de Google, Pages o la vista integrada del Hub.
 
 ## Copia mantenible de la fuente
 
